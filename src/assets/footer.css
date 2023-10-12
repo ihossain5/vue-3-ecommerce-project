@@ -1,0 +1,18 @@
+footer {
+    background-color: #0A2A2E;
+    padding-bottom: 2.1875rem;
+}
+
+footer .logo_wrapper {
+    max-width: 13.0625rem;
+}
+
+footer a:hover {
+    color: var(--white);
+}
+
+@media (max-width: 767.98px) {
+    footer {
+        padding-bottom: 7.5rem;
+    }
+}

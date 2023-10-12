@@ -1,0 +1,252 @@
+@charset "utf-8";
+
+/* ==external fonts links== */
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --grayLight: #CCCCCC;
+  --gray1: #F8F8F8;
+  --gray3: #333333;
+  --grayDip: #666666;
+  --gray9: #999999;
+  --navyBlue: #0A2A2E;
+  --red: #DD1E1E;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+html {
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  font-family: 'Jost', sans-serif;
+}
+
+body {
+  position: relative;
+  font-family: 'Jost', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  color: var(--black);
+  overflow-x: hidden;
+}
+
+/* body.nav_show {
+  overflow: hidden;
+} */
+
+ul,
+ol {
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+}
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+a,
+a:hover {
+  text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active,
+a:focus-visible {
+  outline: none;
+}
+
+span {
+  display: inline-block;
+}
+
+input,
+textarea,
+select,
+button {
+  border: 0;
+  background-color: transparent;
+  outline: 0;
+}
+
+/* ==input and button type focus & outline style== */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+input[type="button"]:focus,
+input[type="reset"]:focus,
+input[type="submit"]:focus,
+select:focus {
+  outline: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.btn.focus,
+.btn:focus,
+button:focus,
+button:focus-visible {
+  outline: 0;
+  box-shadow: none;
+}
+
+.form-control:focus,
+.form-select:focus {
+  box-shadow: none;
+}
+
+table {
+  table-layout: fixed;
+  margin-bottom: 0 !important;
+}
+
+/* >>== media min width start ==<< */
+@media (min-width: 1680px) {
+  .container-xxxl {
+    max-width: 100rem;
+    padding: 0;
+  }
+
+  .col-xxxl-1 {
+    flex: 0 0 auto;
+    width: 8.33333333%;
+  }
+
+  .col-xxxl-2 {
+    flex: 0 0 auto;
+    width: 16.66666667%;
+  }
+
+  .col-xxxl-3 {
+    flex: 0 0 auto;
+    width: 25%;
+  }
+
+  .col-xxxl-4 {
+    flex: 0 0 auto;
+    width: 33.33333333%;
+  }
+
+  .col-xxxl-5 {
+    flex: 0 0 auto;
+    width: 41.66666667%;
+  }
+
+  .col-xxxl-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+
+  .col-xxxl-7 {
+    flex: 0 0 auto;
+    width: 58.33333333%;
+  }
+
+  .col-xxxl-8 {
+    flex: 0 0 auto;
+    width: 66.66666667%;
+  }
+
+  .col-xxxl-9 {
+    flex: 0 0 auto;
+    width: 75%;
+  }
+
+  .col-xxxl-10 {
+    flex: 0 0 auto;
+    width: 83.33333333%;
+  }
+
+  .col-xxxl-11 {
+    flex: 0 0 auto;
+    width: 91.66666667%;
+  }
+
+  .col-xxxl-12 {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+}
+
+
+/* >>== media max width start ==<< */
+@media (max-width: 1919.98px) {}
+
+@media (max-width: 1679.98px) {
+
+  html,
+  body {
+    font-size: 70%;
+  }
+
+  .container-fluid {
+    padding: 0 10rem;
+  }
+}
+
+@media (max-width: 1399.98px) {
+  /* .container-fluid {
+    padding: 0 9.5rem;
+  } */
+}
+
+@media (max-width: 1199.98px) {
+  .container-fluid {
+    padding: 0 2rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+
+  html,
+  body {
+    font-size: 100%;
+  }
+
+  .container-fluid {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (max-width: 575.98px) {
+
+  .container-fluid {
+    padding: 0 1rem;
+  }
+}
