@@ -1,6 +1,7 @@
 <script setup>
 import AdvanceSearch from '../components/AdvanceSearch.vue'
 import TodayDeal from '../components/pages/Home/TodayDeal.vue'
+import Category from '../components/pages/Home/Category.vue'
 
 
 </script>
@@ -558,143 +559,11 @@ import TodayDeal from '../components/pages/Home/TodayDeal.vue'
 
 <TodayDeal></TodayDeal>
 
-    <!-- our categories -->
-    <section class="our_category_sc spb">
-        <div class="container-fluid container-xxxl">
-            <div class="sc_title_wrapper">
-                <h1 class="sc_title">Our Categories</h1>
-                <a href="categories.html" class="br_5 bg_red btnp_1228 tbg_3 hover">
-                    <span class="fw_5 fs_14 lh_20 fc_white text-uppercase">view all</span>
-                </a>
-            </div>
-            <div
-                class="row row-cols-3 row-cols-sm-4 row-cols-lg-5 row-cols-xl-6 gx-2 gx-md-3 gx-lg-4 gy-3 gy-md-4 gy-lg-5 justify-content-center">
-                <div class="row_item">
-                    <a href="#" class="d-block category_card bxy_gl br_5 text-center hover tb_3">
-                        <div class="img_box d-flex justify-content-center align-items-center">
-                            <img src="./assets/images/oc-img-1.png" alt="logo" class="w-100">
-                        </div>
-                        <div class="content">
-                            <h4 class="mb-1 fs_20 lh_29 fc_black">Motor</h4>
-                            <p class="fs_15 lh_22 fc_g9">30 products</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="row_item">
-                    <a href="#" class="d-block category_card bxy_gl br_5 text-center hover tb_3">
-                        <div class="img_box d-flex justify-content-center align-items-center">
-                            <img src="./assets/images/oc-img-2.png" alt="logo" class="w-100">
-                        </div>
-                        <div class="content">
-                            <h4 class="mb-1 fs_20 lh_29 fc_black">Accessories Accessories Motor essories Motor</h4>
-                            <p class="fs_15 lh_22 fc_g9">130 products</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="row_item">
-                    <a href="#" class="d-block category_card bxy_gl br_5 text-center hover tb_3">
-                        <div class="img_box d-flex justify-content-center align-items-center">
-                            <img src="./assets/images/oc-img-1.png" alt="logo" class="w-100">
-                        </div>
-                        <div class="content">
-                            <h4 class="mb-1 fs_20 lh_29 fc_black">Motor</h4>
-                            <p class="fs_15 lh_22 fc_g9">30 products</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="row_item">
-                    <a href="#" class="d-block category_card bxy_gl br_5 text-center hover tb_3">
-                        <div class="img_box d-flex justify-content-center align-items-center">
-                            <img src="./assets/images/oc-img-2.png" alt="logo" class="w-100">
-                        </div>
-                        <div class="content">
-                            <h4 class="mb-1 fs_20 lh_29 fc_black">Accessories</h4>
-                            <p class="fs_15 lh_22 fc_g9">130 products</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="row_item">
-                    <a href="#" class="d-block category_card bxy_gl br_5 text-center hover tb_3">
-                        <div class="img_box d-flex justify-content-center align-items-center">
-                            <img src="./assets/images/oc-img-1.png" alt="logo" class="w-100">
-                        </div>
-                        <div class="content">
-                            <h4 class="mb-1 fs_20 lh_29 fc_black">Motor</h4>
-                            <p class="fs_15 lh_22 fc_g9">30 products</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="row_item">
-                    <a href="#" class="d-block category_card bxy_gl br_5 text-center hover tb_3">
-                        <div class="img_box d-flex justify-content-center align-items-center">
-                            <img src="./assets/images/oc-img-2.png" alt="logo" class="w-100">
-                        </div>
-                        <div class="content">
-                            <h4 class="mb-1 fs_20 lh_29 fc_black">Accessories</h4>
-                            <p class="fs_15 lh_22 fc_g9">130 products</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="row_item">
-                    <a href="#" class="d-block category_card bxy_gl br_5 text-center hover tb_3">
-                        <div class="img_box d-flex justify-content-center align-items-center">
-                            <img src="./assets/images/oc-img-1.png" alt="logo" class="w-100">
-                        </div>
-                        <div class="content">
-                            <h4 class="mb-1 fs_20 lh_29 fc_black">Motor</h4>
-                            <p class="fs_15 lh_22 fc_g9">30 products</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="row_item">
-                    <a href="#" class="d-block category_card bxy_gl br_5 text-center hover tb_3">
-                        <div class="img_box d-flex justify-content-center align-items-center">
-                            <img src="./assets/images/oc-img-2.png" alt="logo" class="w-100">
-                        </div>
-                        <div class="content">
-                            <h4 class="mb-1 fs_20 lh_29 fc_black">Accessories</h4>
-                            <p class="fs_15 lh_22 fc_g9">130 products</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="row_item">
-                    <a href="#" class="d-block category_card bxy_gl br_5 text-center hover tb_3">
-                        <div class="img_box d-flex justify-content-center align-items-center">
-                            <img src="./assets/images/oc-img-1.png" alt="logo" class="w-100">
-                        </div>
-                        <div class="content">
-                            <h4 class="mb-1 fs_20 lh_29 fc_black">Motor</h4>
-                            <p class="fs_15 lh_22 fc_g9">30 products</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="row_item">
-                    <a href="#" class="d-block category_card bxy_gl br_5 text-center hover tb_3">
-                        <div class="img_box d-flex justify-content-center align-items-center">
-                            <img src="./assets/images/oc-img-2.png" alt="logo" class="w-100">
-                        </div>
-                        <div class="content">
-                            <h4 class="mb-1 fs_20 lh_29 fc_black">Accessories</h4>
-                            <p class="fs_15 lh_22 fc_g9">130 products</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="row_item">
-                    <a href="#" class="d-block category_card bxy_gl br_5 text-center hover tb_3">
-                        <div class="img_box d-flex justify-content-center align-items-center">
-                            <img src="./assets/images/oc-img-2.png" alt="logo" class="w-100">
-                        </div>
-                        <div class="content">
-                            <h4 class="mb-1 fs_20 lh_29 fc_black">Accessories</h4>
-                            <p class="fs_15 lh_22 fc_g9">130 products</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+  <!-- our categories -->
+ <Category></Category>
 
     <!-- our brands -->
+<Category></Category>
     <section class="our_brands_sc spy">
         <div class="container-fluid container-xxxl">
             <div class="sc_title_wrapper">
