@@ -1,5 +1,8 @@
 <script setup>
 import AdvanceSearch from '../components/AdvanceSearch.vue'
+import TodayDeal from '../components/pages/Home/TodayDeal.vue'
+
+
 </script>
 
 <template>
@@ -553,63 +556,7 @@ import AdvanceSearch from '../components/AdvanceSearch.vue'
         </div>
     </section>
 
-    <!-- today's deal -->
-    <section class="todays_deal_sc spy">
-        <div class="container-fluid container-xxxl">
-            <div class="sc_title_wrapper">
-                <h1 class="sc_title">Today's Deal</h1>
-                <a href="todays-deals.html" class="br_5 bg_red btnp_1228 tbg_3 hover">
-                    <span class="fw_5 fs_14 lh_20 fc_white text-uppercase">view all</span>
-                </a>
-            </div>
-            <div class="row row-cols-md-2 g-3 g-md-4">
-                <div class="row_item">
-                    <div class="position-relative">
-                        <img src="./assets/images/td-img-2.png" alt="thumb" class="w-100 br_5">
-                        <div class="abs_content text-center">
-                            <img src="./assets/images/td-slg.png" alt="logo">
-                            <span class="fw_5 fs_14 lh_20 fc_white text-uppercase mt-2">Bike Parts
-                                Center</span>
-                        </div>
-                        <p class="fw-5 fs_15 lh_22 fc_white">Starting At Only BDT 174,950</p>
-                    </div>
-                </div>
-                <div class="row_item">
-                    <div class="position-relative">
-                        <img src="./assets/images/td-img-2.png" alt="thumb" class="w-100 br_5">
-                        <div class="abs_content text-center">
-                            <img src="./assets/images/td-slg.png" alt="logo">
-                            <span class="fw_5 fs_14 lh_20 fc_white text-uppercase mt-2">Bike Parts
-                                Center</span>
-                        </div>
-                        <p class="fw-5 fs_15 lh_22 fc_white">Starting At Only BDT 174,950</p>
-                    </div>
-                </div>
-                <div class="row_item">
-                    <div class="position-relative">
-                        <img src="./assets/images/td-img-2.png" alt="thumb" class="w-100 br_5">
-                        <div class="abs_content text-center">
-                            <img src="./assets/images/td-slg.png" alt="logo">
-                            <span class="fw_5 fs_14 lh_20 fc_white text-uppercase mt-2">Bike Parts
-                                Center</span>
-                        </div>
-                        <p class="fw-5 fs_15 lh_22 fc_white">Starting At Only BDT 174,950</p>
-                    </div>
-                </div>
-                <div class="row_item">
-                    <div class="position-relative">
-                        <img src="./assets/images/td-img-2.png" alt="thumb" class="w-100 br_5">
-                        <div class="abs_content text-center">
-                            <img src="./assets/images/td-slg.png" alt="logo">
-                            <span class="fw_5 fs_14 lh_20 fc_white text-uppercase mt-2">Bike Parts
-                                Center</span>
-                        </div>
-                        <p class="fw-5 fs_15 lh_22 fc_white">Starting At Only BDT 174,950</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<TodayDeal></TodayDeal>
 
     <!-- our categories -->
     <section class="our_category_sc spb">
