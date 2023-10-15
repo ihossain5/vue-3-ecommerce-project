@@ -9,7 +9,7 @@ export default {
     }
   },
   async created() {
-    await fetch("https://api.twowheelersbd.com/api/brands", {
+    await fetch(this.BASE_API_URL+"/brands", {
         method: 'GET' //optional
     })
       .then(async (response) => {

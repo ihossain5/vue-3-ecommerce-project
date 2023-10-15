@@ -10,7 +10,7 @@ export default {
         };
     },
     async created() {
-        await fetch("https://api.twowheelersbd.com/api/accessories", {
+        await fetch(this.BASE_API_URL +"/accessories", {
             method: 'GET' //optional
         })
             .then(async (response) => {

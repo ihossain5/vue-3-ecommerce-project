@@ -10,7 +10,7 @@ export default {
         };
     },
     async created() {
-        await fetch("https://api.twowheelersbd.com/api/products", {
+        await fetch(this.BASE_API_URL+"/products", {
             method: 'GET' //optional
         })
             .then(async (response) => {
@@ -46,7 +46,7 @@ export default {
             Loading...</span>
         </a>
       </div> -->
-      
+
     </div>
   </section>
 </template>

@@ -9,7 +9,7 @@ export default {
     }
   },
   async created() {
-    await fetch("https://api.twowheelersbd.com/api/hot-deals", {
+    await fetch(this.BASE_API_URL+"/hot-deals", {
         method: 'GET' //optional
     })
       .then(async (response) => {
