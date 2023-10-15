@@ -7,7 +7,7 @@
                         <div class="d-flex d-lg-inline align-items-center justify-content-between">
                             <div class="logo_wrapper">
                                 <a href="/">
-                                    <img src="./assets/images/header-logo.svg" alt="logo">
+                                    <img src="https://twowheelersbd.com/frontend/assets/images/header-logo.svg" alt="logo">
                                 </a>
                             </div>
                             <button class="d-md-none" type="button" data-bs-toggle="offcanvas"

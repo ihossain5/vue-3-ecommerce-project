@@ -46,7 +46,9 @@ export default {
                                 <div class="text-center text-md-start">
                                     <h4 class="mb-md-2 fw_5 fs_20 lh_29">{{ shop.name }}</h4>
                                     <div class="rate_wrapper">
-                                        <div class="rating rating_16" data-rateyo-read-only="true"></div>
+                                        <div class="ratings">
+                                            <i :data-star="shop.rating ?? 0"></i>
+                                        </div>
                                     </div>
                                     <p class="pt-md-3 fs_15 lh_22 fc_gd">{{ shop.division }}</p>
                                 </div>

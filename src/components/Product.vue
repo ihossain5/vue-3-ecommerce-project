@@ -24,7 +24,9 @@ export default {
                 <div class="content text-center">
                     <h6 class="mb-0 mb-md-3 fw_4 fs_17 lh_22 fc_black">{{ product.name }}</h6>
                     <div class="rate_wrapper">
-                        <div class="rating rating_16"></div>
+                        <div class="ratings">
+                            <i :data-star="product.rating"></i>
+                        </div>
                     </div>
                     <h5
                         class="d-flex justify-content-center align-items-center gap-2 gap-md-4 pt-0 pt-md-3 fs_18 lh_22 fc_black">
