@@ -116,8 +116,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a class="d-flex align-items-center gap-3 svg_20"
-                                                href="my-profile-info.html">
+                                            <a class="d-flex align-items-center gap-3 svg_20" href="my-profile-info.html">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     viewBox="0 0 20 20" fill="none">
                                                     <path
@@ -149,11 +148,9 @@
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     viewBox="0 0 20 20" fill="none">
                                                     <path d="M17.5 6.66406V17.4974H2.5V6.66406" stroke="#666666"
-                                                        stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                    <path d="M19.1673 2.5H0.833984V6.66667H19.1673V2.5Z"
-                                                        stroke="#666666" stroke-width="1.5" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
+                                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                                    <path d="M19.1673 2.5H0.833984V6.66667H19.1673V2.5Z" stroke="#666666"
+                                                        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                                     <path d="M8.33398 10H11.6673" stroke="#666666" stroke-width="1.5"
                                                         stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
@@ -203,8 +200,7 @@
                                     fill="none">
                                     <path
                                         d="M20.8401 4.60987C20.3294 4.09888 19.7229 3.69352 19.0555 3.41696C18.388 3.14039 17.6726 2.99805 16.9501 2.99805C16.2276 2.99805 15.5122 3.14039 14.8448 3.41696C14.1773 3.69352 13.5709 4.09888 13.0601 4.60987L12.0001 5.66987L10.9401 4.60987C9.90843 3.57818 8.50915 2.99858 7.05012 2.99858C5.59109 2.99858 4.19181 3.57818 3.16012 4.60987C2.12843 5.64156 1.54883 7.04084 1.54883 8.49987C1.54883 9.95891 2.12843 11.3582 3.16012 12.3899L4.22012 13.4499L12.0001 21.2299L19.7801 13.4499L20.8401 12.3899C21.3511 11.8791 21.7565 11.2727 22.033 10.6052C22.3096 9.93777 22.4519 9.22236 22.4519 8.49987C22.4519 7.77738 22.3096 7.06198 22.033 6.39452C21.7565 5.72706 21.3511 5.12063 20.8401 4.60987Z"
-                                        stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                                 <span
                                     class="position-absolute rounded-circle d-flex justify-content-center align-items-center bg_white bxy_gl  fs_14 lh_20 fc_black">0</span>
@@ -215,16 +211,13 @@
                                     fill="none">
                                     <path
                                         d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"
-                                        stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     <path
                                         d="M20 22C20.5523 22 21 21.5523 21 21C21 20.4477 20.5523 20 20 20C19.4477 20 19 20.4477 19 21C19 21.5523 19.4477 22 20 22Z"
-                                        stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     <path
                                         d="M1 1H5L7.68 14.39C7.77144 14.8504 8.02191 15.264 8.38755 15.5583C8.75318 15.8526 9.2107 16.009 9.68 16H19.4C19.8693 16.009 20.3268 15.8526 20.6925 15.5583C21.0581 15.264 21.3086 14.8504 21.4 14.39L23 6H6"
-                                        stroke="white" stroke-width="1.5" stroke-linecap="round"
-                                        stroke-linejoin="round" />
+                                        stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                                 <span
                                     class="position-absolute rounded-circle d-flex justify-content-center align-items-center bg_white bxy_gl  fs_14 lh_20 fc_black">0</span>
@@ -241,8 +234,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <button class="mt_btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNav"
                             aria-controls="offcanvasNav">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <g id="bar-chart-2">
                                     <g id="Group 11029">
                                         <path id="Vector" d="M4 18H14" stroke="white" stroke-width="2"
@@ -378,8 +370,8 @@
     </div>
     <slot></slot>
 
-        <!-- footer -->
-        <footer class="spt">
+    <!-- footer -->
+    <footer class="spt">
         <div class="container-fluid container-xxxl">
             <div class="row g-4 g-md-5">
                 <div class="col-sm-6 col-md-4 col-lg-3">
@@ -420,32 +412,28 @@
 
                     <div class="d-flex align-items-center gap-4 mb-3 mb-md-0">
                         <a href="#" class="pe-1 svg_24">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path
                                     d="M14 13.5H16.5L17.5 9.5H14V7.5C14 6.47 14 5.5 16 5.5H17.5V2.14C17.174 2.097 15.943 2 14.643 2C11.928 2 10 3.657 10 6.7V9.5H7V13.5H10V22H14V13.5Z"
                                     fill="white" />
                             </svg>
                         </a>
                         <a href="#" class="pe-2 svg_24">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path
                                     d="M22.4591 6C21.6891 6.35 20.8591 6.58 19.9991 6.69C20.8791 6.16 21.5591 5.32 21.8791 4.31C21.0491 4.81 20.1291 5.16 19.1591 5.36C18.3691 4.5 17.2591 4 15.9991 4C13.6491 4 11.7291 5.92 11.7291 8.29C11.7291 8.63 11.7691 8.96 11.8391 9.27C8.27906 9.09 5.10906 7.38 2.99906 4.79C2.62906 5.42 2.41906 6.16 2.41906 6.94C2.41906 8.43 3.16906 9.75 4.32906 10.5C3.61906 10.5 2.95906 10.3 2.37906 10V10.03C2.37906 12.11 3.85906 13.85 5.81906 14.24C5.18979 14.4122 4.52916 14.4362 3.88906 14.31C4.16067 15.1625 4.6926 15.9084 5.41008 16.4429C6.12756 16.9775 6.99451 17.2737 7.88906 17.29C6.37269 18.4904 4.49306 19.1393 2.55906 19.13C2.21906 19.13 1.87906 19.11 1.53906 19.07C3.43906 20.29 5.69906 21 8.11906 21C15.9991 21 20.3291 14.46 20.3291 8.79C20.3291 8.6 20.3291 8.42 20.3191 8.23C21.1591 7.63 21.8791 6.87 22.4591 6Z"
                                     fill="white" />
                             </svg>
                         </a>
                         <a href="#" class="pe-2 svg_24">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path
                                     d="M10 15L15.19 12L10 9V15ZM21.56 7.17C21.69 7.64 21.78 8.27 21.84 9.07C21.91 9.87 21.94 10.56 21.94 11.16L22 12C22 14.19 21.84 15.8 21.56 16.83C21.31 17.73 20.73 18.31 19.83 18.56C19.36 18.69 18.5 18.78 17.18 18.84C15.88 18.91 14.69 18.94 13.59 18.94L12 19C7.81 19 5.2 18.84 4.17 18.56C3.27 18.31 2.69 17.73 2.44 16.83C2.31 16.36 2.22 15.73 2.16 14.93C2.09 14.13 2.06 13.44 2.06 12.84L2 12C2 9.81 2.16 8.2 2.44 7.17C2.69 6.27 3.27 5.69 4.17 5.44C4.64 5.31 5.5 5.22 6.82 5.16C8.12 5.09 9.31 5.06 10.41 5.06L12 5C16.19 5 18.8 5.16 19.83 5.44C20.73 5.69 21.31 6.27 21.56 7.17Z"
                                     fill="white" />
                             </svg>
                         </a>
                         <a href="#" class=" svg_24">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path
                                     d="M12 8.75C11.138 8.75 10.3114 9.09241 9.7019 9.7019C9.09241 10.3114 8.75 11.138 8.75 12C8.75 12.862 9.09241 13.6886 9.7019 14.2981C10.3114 14.9076 11.138 15.25 12 15.25C12.862 15.25 13.6886 14.9076 14.2981 14.2981C14.9076 13.6886 15.25 12.862 15.25 12C15.25 11.138 14.9076 10.3114 14.2981 9.7019C13.6886 9.09241 12.862 8.75 12 8.75Z"
                                     fill="white" />
@@ -489,9 +477,8 @@
                         typesetting industry. Lorem Ipsum has been the industry's standard.</p>
                     <form action="#">
                         <div class="input-group mb-4">
-                            <input type="text" class="form-control btnp_1520 fs_14 fc_black"
-                                placeholder="Search Here..." aria-label="Search Here..."
-                                aria-describedby="header-search">
+                            <input type="text" class="form-control btnp_1520 fs_14 fc_black" placeholder="Search Here..."
+                                aria-label="Search Here..." aria-describedby="header-search">
                             <span
                                 class="input-group-text btnp_1520 bg_red br_5 fw_5 fs_14 fc_white border-0 text-uppercase tbg_3 hover svg_24"
                                 id="header-search">
@@ -524,4 +511,4 @@
             </div>
         </div>
     </footer>
-  </template>
+</template>

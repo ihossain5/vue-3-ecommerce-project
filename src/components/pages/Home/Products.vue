@@ -1,26 +1,39 @@
 <script>
-import { ref } from 'vue'
+import { ref,onMounted } from 'vue'
 import Product from '../../Product.vue'
+import axios from 'axios';
+import LoadingPlaceholder from '../../LoadingPlaceholder.vue'
+import { BASE_API_URL } from '../../../config.js';
 
 export default {
     setup() {
-        const products = ref({});
-        return {
-          products
-        };
-    },
-    async created() {
-        await fetch(this.BASE_API_URL+"/products", {
-            method: 'GET' //optional
-        })
-            .then(async (response) => {
-            const data = await response.json();
-            this.products = data.resutls.data;
-        })
-            .catch((error) => { return error; });
-    },
-    components: { Product }
+    const loading = ref(true); 
+    const products = ref({});
+
+    onMounted(() => {
+      setTimeout(() => {
+        axios.get(`${BASE_API_URL}/products`)
+          .then(response => {
+            products.value = response.data.resutls.data;
+            loading.value = false; 
+          })
+          .catch(error => {
+            console.error(error);
+            loading.value = false; 
+          });
+      }, 2000); // 2-second delay
+    });
+
+    return {
+      loading,
+      products,
+    };
+  },
+  components: { Product, LoadingPlaceholder }
 }
+
+
+
 </script>
 
 <template>
@@ -34,7 +47,7 @@ export default {
       </div>
 
       <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-2 g-md-4">
-
+         <LoadingPlaceholder v-if="loading"></LoadingPlaceholder>
          <Product :products="products"></Product>
         
       </div>

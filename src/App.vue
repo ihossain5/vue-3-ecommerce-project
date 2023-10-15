@@ -7,11 +7,9 @@ import HomeView from './views/HomeView.vue'
 </script>
 
 <template>
-
-<BaseLayout>
-    <HomeView></HomeView>
-</BaseLayout>
-
+    <BaseLayout>
+        <HomeView></HomeView>
+    </BaseLayout>
 </template>
 
 <style>

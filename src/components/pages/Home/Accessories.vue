@@ -4,18 +4,18 @@ import axios from 'axios';
 import Product from '../../Product.vue'
 import LoadingPlaceholder from '../../LoadingPlaceholder.vue'
 
+import { BASE_API_URL } from '../../../config.js';
+
+
 export default {
   setup() {
-    const loading = ref(true); // Initially, set loading to true
+    const loading = ref(true); 
     const accessories = ref({});
-    const url = 'https://api.twowheelersbd.com/api'
 
     onMounted(() => {
-      // Fetch data when the component is mounted
       setTimeout(() => {
-        axios.get(`${url}/accessories`)
+        axios.get(`${BASE_API_URL}/accessories`)
           .then(response => {
-            console.log(response);
             accessories.value = response.data.resutls.data;
             loading.value = false; 
           })
