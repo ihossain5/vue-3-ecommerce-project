@@ -1,30 +1,41 @@
 <script>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 import Product from '../../Product.vue'
+import LoadingPlaceholder from '../../LoadingPlaceholder.vue'
 
 export default {
-    setup() {
-        const accessories = ref({});
-        return {
-            accessories
-        };
-    },
-    async created() {
-        await fetch(this.BASE_API_URL +"/accessories", {
-            method: 'GET' //optional
-        })
-            .then(async (response) => {
-            const data = await response.json();
-            this.accessories = data.resutls.data;
-        })
-            .catch((error) => { return error; });
-    },
-    components: { Product }
+  setup() {
+    const loading = ref(true); // Initially, set loading to true
+    const accessories = ref({});
+    const url = 'https://api.twowheelersbd.com/api'
+
+    onMounted(() => {
+      // Fetch data when the component is mounted
+      setTimeout(() => {
+        axios.get(`${url}/accessories`)
+          .then(response => {
+            console.log(response);
+            accessories.value = response.data.resutls.data;
+            loading.value = false; 
+          })
+          .catch(error => {
+            console.error(error);
+            loading.value = false; 
+          });
+      }, 2000); // 2-second delay
+    });
+
+    return {
+      loading,
+      accessories,
+    };
+  },
+  components: { Product, LoadingPlaceholder }
 }
 </script>
 
 <template>
-
   <section class="accessories_sc spy">
     <div class="container-fluid container-xxxl">
       <div class="sc_title_wrapper">
@@ -34,10 +45,13 @@ export default {
         </a>
       </div>
       <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-2 g-md-4">
+        <!-- Display a loading indicator or skeleton screen -->
+        <LoadingPlaceholder v-if="loading"></LoadingPlaceholder>
 
         <Product :products="accessories"></Product>
-        
+
       </div>
     </div>
   </section>
 </template>
+
