@@ -9,10 +9,10 @@ import Accessories from '../components/pages/Home/Accessories.vue'
 import Products from '../components/pages/Home/Products.vue'
 import Slider from '../components/pages/Home/Slider.vue'
 
-
 </script>
 
 <template>
+   
   <AdvanceSearch></AdvanceSearch>
 
   <!-- categories with slider -->
@@ -38,5 +38,5 @@ import Slider from '../components/pages/Home/Slider.vue'
 
   <!-- all products -->
   <Products></Products>
- 
+
 </template>

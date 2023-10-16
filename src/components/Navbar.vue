@@ -45,9 +45,9 @@ export default {
                     <div class="col-md-4 col-lg-3">
                         <div class="d-flex d-lg-inline align-items-center justify-content-between">
                             <div class="logo_wrapper">
-                                <a href="/">
+                                <router-link to="/">
                                     <img src="https://twowheelersbd.com/frontend/assets/images/header-logo.svg" alt="logo">
-                                </a>
+                                </router-link>
                             </div>
                             <button class="d-md-none" type="button" data-bs-toggle="offcanvas"
                                 data-bs-target="#offcanvasSearch" aria-controls="offcanvasSearch">
@@ -143,11 +143,11 @@ export default {
                     <div class="col-md-4 col-lg-3 d-none d-md-block">
                         <div class="d-flex justify-content-end align-items-center meta_controls">
                             <div class="text-start">
-                                <span class="fs_14 lh_20 mb-1">My Account</span>
-                                <!-- <p class="fw_6 fs_14 lh_20">
-                                    <a href="sign-in.html" class="fc_black">Sign In</a>
-                                    <a href="sign-up.html" class="fc_black">/ Sign Up</a>
-                                </p> -->
+                                <p class="fw_6 fs_14 lh_20">
+                                    <router-link to="sign-in" class="fc_black">Sign In</router-link>
+                                    <router-link to="sign-up" class="fc_black">/ Sign Up</router-link>
+                                </p>
+                                <!-- <span class="fs_14 lh_20 mb-1">My Account</span>
                                 <div class="dropdown">
                                     <button class="dropdown-toggle fw_6 fs_14 lh_20 fc_black" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
@@ -214,7 +214,7 @@ export default {
                                             </a>
                                         </li>
                                     </ul>
-                                </div>
+                                </div> -->
                             </div>
                             <a href="compare.html"
                                 class="badge_btn position-relative bg_red rounded-circle d-flex justify-content-center align-items-center fs_20">
