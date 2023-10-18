@@ -9,7 +9,7 @@ export default {
     }
   },
   async created() {
-    await fetch(this.BASE_API_URL+"/blogs", {
+    await fetch(this.BASE_API_URL+"/blogs?pagination=4", {
         method: 'GET' //optional
     })
       .then(async (response) => {
@@ -27,9 +27,9 @@ export default {
     <div class="container-fluid container-xxxl">
       <div class="sc_title_wrapper">
         <h1 class="sc_title">our blogs</h1>
-        <a href="#" class="br_5 bg_red btnp_1228 tbg_3 hover">
+        <router-link to="/blogs" class="br_5 bg_red btnp_1228 tbg_3 hover">
           <span class="fw_5 fs_14 lh_20 fc_white text-uppercase">view all</span>
-        </a>
+        </router-link>
       </div>
       <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-2 g-md-3 g-lg-4">
 

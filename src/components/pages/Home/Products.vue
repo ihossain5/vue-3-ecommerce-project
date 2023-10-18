@@ -21,7 +21,7 @@ export default {
             console.error(error);
             loading.value = false; 
           });
-      }, 2000); // 2-second delay
+      }); // 2-second delay
     });
 
     return {
@@ -41,9 +41,9 @@ export default {
     <div class="container-fluid container-xxxl">
       <div class="sc_title_wrapper">
         <h1 class="sc_title">All Products</h1>
-        <a href="#" class="br_5 bg_red btnp_1228 tbg_3 hover">
+        <router-link to="/all-products" class="br_5 bg_red btnp_1228 tbg_3 hover">
           <span class="fw_5 fs_14 lh_20 fc_white text-uppercase">view all</span>
-        </a>
+        </router-link>
       </div>
 
       <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-2 g-md-4">
