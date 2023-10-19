@@ -8,94 +8,89 @@ import LoadingPlaceholder from '../components/LoadingPlaceholder.vue';
 export default {
     setup() {
         const loading = ref(true);
-        const products = ref([]);
-        const from = ref(0);
-        const to = ref(0);
-        const total = ref(0);
+
+        const Base_Url = `${BASE_API_URL}/products`
+
         const selectedSortOption = ref('default');
-        const currentPage = ref(1);
-        const pageSize = 20;
-        const scrollObserver = ref(null);
-        let loadingMore = false;
-        let allDataFetched = false;
-
-        const loadMoreProducts = async () => {
-            if (loadingMore || allDataFetched) return;
-            loadingMore = true;
-
-            try {
-                const response = await axios.get(`${BASE_API_URL}/products?pagination=${pageSize}&page=${currentPage.value}`);
-                const newProducts = response.data.resutls.data;
-
-                if (newProducts.length === 0) {
-                    // If no new data is received, all data has been fetched
-                    allDataFetched = true;
-                    loading.value = false;
-                    return;
-                }
 
 
-                products.value = [...products.value, ...newProducts];
-                total.value = response.data.resutls.meta.total;
-                from.value = response.data.resutls.meta.from;
-                to.value = response.data.resutls.meta.to;
-                currentPage.value++;
-                loading.value = false;
-            } catch (error) {
-                console.error(error);
-            } finally {
-                loadingMore = false;
-                loading.value = false;
-            }
-        };
+        // const loadMoreProducts = async () => {
+        //     if (loadingMore || allDataFetched) return;
+        //     loadingMore = true;
 
-        const handleScroll = () => {
-            if (allDataFetched || loadingMore) return;
-            if (
-                window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 200
-            ) {
-                loading.value = true;
-                loadMoreProducts();
-            }
-        };
+        //     try {
+        //         const response = await axios.get(`${BASE_API_URL}/products?pagination=${pageSize}&page=${currentPage.value}`);
+        //         const newProducts = response.data.resutls.data;
 
-        onMounted(() => {
-            loadMoreProducts();
-            scrollObserver.value = document.querySelector('#scrollObserver');
-            window.addEventListener('scroll', handleScroll);
-        });
+        //         if (newProducts.length === 0) {
+        //             // If no new data is received, all data has been fetched
+        //             allDataFetched = true;
+        //             loading.value = false;
+        //             return;
+        //         }
 
-        onUnmounted(() => {
-            window.removeEventListener('scroll', handleScroll);
-        });
 
-        watch(selectedSortOption, () => {
-            sortProducts();
-        });
+        //         products.value = [...products.value, ...newProducts];
+        //         total.value = response.data.resutls.meta.total;
+        //         from.value = response.data.resutls.meta.from;
+        //         to.value = response.data.resutls.meta.to;
+        //         currentPage.value++;
+        //         loading.value = false;
+        //     } catch (error) {
+        //         console.error(error);
+        //     } finally {
+        //         loadingMore = false;
+        //         loading.value = false;
+        //     }
+        // };
 
-        const sortProducts = () => {
-            let sorted = [...products.value];
-            if (selectedSortOption.value === 'asc') {
-                sorted = sorted.sort((a, b) => a.name.localeCompare(b.name));
-            } else if (selectedSortOption.value === 'dsc') {
-                sorted = sorted.sort((a, b) => b.name.localeCompare(a.name));
-            } else if (selectedSortOption.value === 'price_high_to_low') {
-                sorted = sorted.sort((a, b) => b.discounted_price - a.discounted_price);
-            } else if (selectedSortOption.value === 'price_low_to_high') {
-                sorted = sorted.sort((a, b) => a.discounted_price - b.discounted_price);
-            }else  if (selectedSortOption.value === 'default'){
-                sorted = sorted.sort((a, b) => a.id - b.id);
-                sorted.reverse();
-            }
-            products.value = sorted;
-        };
+        // const handleScroll = () => {
+        //     if (allDataFetched || loadingMore) return;
+        //     if (
+        //         window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 200
+        //     ) {
+        //         loading.value = true;
+        //         loadMoreProducts();
+        //     }
+        // };
 
-        const sortedItems = computed(() => {
-            return products.value;
-        });
+        // onMounted(() => {
+        //     loadMoreProducts();
+        //     scrollObserver.value = document.querySelector('#scrollObserver');
+        //     window.addEventListener('scroll', handleScroll);
+        // });
+
+        // onUnmounted(() => {
+        //     window.removeEventListener('scroll', handleScroll);
+        // });
+
+        // watch(selectedSortOption, () => {
+        //     sortProducts();
+        // });
+
+        // const sortProducts = () => {
+        //     let sorted = [...products.value];
+        //     if (selectedSortOption.value === 'asc') {
+        //         sorted = sorted.sort((a, b) => a.name.localeCompare(b.name));
+        //     } else if (selectedSortOption.value === 'dsc') {
+        //         sorted = sorted.sort((a, b) => b.name.localeCompare(a.name));
+        //     } else if (selectedSortOption.value === 'price_high_to_low') {
+        //         sorted = sorted.sort((a, b) => b.discounted_price - a.discounted_price);
+        //     } else if (selectedSortOption.value === 'price_low_to_high') {
+        //         sorted = sorted.sort((a, b) => a.discounted_price - b.discounted_price);
+        //     }else  if (selectedSortOption.value === 'default'){
+        //         sorted = sorted.sort((a, b) => a.id - b.id);
+        //         sorted.reverse();
+        //     }
+        //     products.value = sorted;
+        // };
+
+        // const sortedItems = computed(() => {
+        //     return products.value;
+        // });
 
         return {
-            loading, from, to, total, products, selectedSortOption, sortProducts, sortedItems
+            loading, selectedSortOption, Base_Url
         };
     },
     components: { Product, LoadingPlaceholder }
@@ -242,7 +237,7 @@ export default {
                         <div class="row align-items-end gy-4 gy-md-0">
                             <div class="col-12 col-md-6 text-center text-md-start">
                                 <h1 class="fw_6 fs_30 lh_43 pb-2 pb-md-3 pb-lg-4">Products</h1>
-                                <span class="fs_16 lh_23 pb-3 pb-md-0">Showing {{ from }} to {{ to }} of {{ total }}</span>
+                                <!-- <span class="fs_16 lh_23 pb-3 pb-md-0">Showing {{ from }} to {{ to }} of {{ total }}</span> -->
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -281,12 +276,12 @@ export default {
 
                     <!-- products -->
                     <div class="pt-4 products_wrapper spb">
-                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-md-4">
-                            <Product :products="sortedItems"></Product>
-
+                        
+                            <Product :baseUlr="Base_Url" :selectedSortOption="selectedSortOption" ></Product>
+<!-- 
                             <div ref="scrollObserver" style="height: 1px;"></div>
-                            <LoadingPlaceholder v-if="loading"></LoadingPlaceholder>
-                        </div>
+                            <LoadingPlaceholder v-if="loading"></LoadingPlaceholder> -->
+                       
                     </div>
 
                     <!-- pagination -->

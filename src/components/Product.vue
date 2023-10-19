@@ -1,12 +1,103 @@
 <script>
+import { onUnmounted, onMounted, ref, watch, computed } from 'vue'
+import axios from 'axios';
+import LoadingPlaceholder from './LoadingPlaceholder.vue';
 export default {
-  props: {
-    products: Object, // Define the prop and its type
-  },
+    props: {
+        baseUlr: String, // Define the prop and its type
+        selectedSortOption: String, // Define the prop and its type
+    },
+    setup(props) {
+        const loading = ref(true);
+        const products = ref([]);
+        const from = ref(0);
+        const to = ref(0);
+        const total = ref(0);
+        const currentPage = ref(1);
+        const pageSize = 20;
+        const scrollObserver = ref(null);
+        let loadingMore = false;
+        let allDataFetched = false;
+        const loadMoreProducts = async () => {
+            if (loadingMore || allDataFetched)
+                return;
+            loadingMore = true;
+            try {
+                const response = await axios.get(`${props.baseUlr}?pagination=${pageSize}&page=${currentPage.value}`);
+                const newProducts = response.data.resutls.data;
+                if (newProducts.length === 0) {
+                    // If no new data is received, all data has been fetched
+                    allDataFetched = true;
+                    loading.value = false;
+                    return;
+                }
+                products.value = [...products.value, ...newProducts];
+                total.value = response.data.resutls.meta.total;
+                from.value = response.data.resutls.meta.from;
+                to.value = response.data.resutls.meta.to;
+                currentPage.value++;
+                loading.value = false;
+            }
+            catch (error) {
+                console.error(error);
+            }
+            finally {
+                loadingMore = false;
+                loading.value = false;
+            }
+        };
+        const handleScroll = () => {
+            if (allDataFetched || loadingMore)
+                return;
+            if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 200) {
+                loading.value = true;
+                loadMoreProducts();
+            }
+        };
+        onMounted(() => {
+            loadMoreProducts();
+            scrollObserver.value = document.querySelector('#scrollObserver');
+            window.addEventListener('scroll', handleScroll);
+        });
+        onUnmounted(() => {
+            window.removeEventListener('scroll', handleScroll);
+        });
+        // watch(selectedSortOption, () => {
+        //     sortProducts();
+        // });
+        const sortProducts = () => {
+            let sorted = [...products.value];
+            if (selectedSortOption.value === 'asc') {
+                sorted = sorted.sort((a, b) => a.name.localeCompare(b.name));
+            }
+            else if (selectedSortOption.value === 'dsc') {
+                sorted = sorted.sort((a, b) => b.name.localeCompare(a.name));
+            }
+            else if (selectedSortOption.value === 'price_high_to_low') {
+                sorted = sorted.sort((a, b) => b.discounted_price - a.discounted_price);
+            }
+            else if (selectedSortOption.value === 'price_low_to_high') {
+                sorted = sorted.sort((a, b) => a.discounted_price - b.discounted_price);
+            }
+            else if (selectedSortOption.value === 'default') {
+                sorted = sorted.sort((a, b) => a.id - b.id);
+                sorted.reverse();
+            }
+            products.value = sorted;
+        };
+        const sortedItems = computed(() => {
+            return products.value;
+        });
+        return {
+            loading, from, to, total, products, sortProducts, sortedItems
+        };
+    },
+    components: { LoadingPlaceholder }
 };
 </script>
 
 <template>
+<div class="row row-cols-2 row-cols-sm-3 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-md-4">
     <div class="row_item" v-for="product in products" :key="product.id">
         <div class="position-relative overflow-hidden prd_card br_5 bxy_gl bs_15 tbs_tb_3 hover">
             <a href="#" class="d-block">
@@ -88,4 +179,7 @@ export default {
             </div>
         </div>
     </div>
+    <div ref="scrollObserver" style="height: 1px;"></div>
+    <LoadingPlaceholder v-if="loading"></LoadingPlaceholder>
+</div>
 </template>
