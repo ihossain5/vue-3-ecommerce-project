@@ -7,94 +7,97 @@ import LoadingPlaceholder from '../components/LoadingPlaceholder.vue';
 
 export default {
     setup() {
-    const loading = ref(true);
-    const products = ref([]);
-    const from = ref(0);
-    const to = ref(0);
-    const total = ref(0);
-    const selectedSortOption = ref('default');
-    const currentPage = ref(1);
-    const pageSize = 20;
-    const scrollObserver = ref(null);
-    let loadingMore = false;
-    let allDataFetched = false;
+        const loading = ref(true);
+        const products = ref([]);
+        const from = ref(0);
+        const to = ref(0);
+        const total = ref(0);
+        const selectedSortOption = ref('default');
+        const currentPage = ref(1);
+        const pageSize = 20;
+        const scrollObserver = ref(null);
+        let loadingMore = false;
+        let allDataFetched = false;
 
-    const loadMoreProducts = async () => {
-        if (loadingMore || allDataFetched) return;
-      loadingMore = true;
+        const loadMoreProducts = async () => {
+            if (loadingMore || allDataFetched) return;
+            loadingMore = true;
 
-      try {
-        const response = await axios.get(`${BASE_API_URL}/products?pagination=${pageSize}&page=${currentPage.value}`);
-        const newProducts = response.data.resutls.data;
+            try {
+                const response = await axios.get(`${BASE_API_URL}/products?pagination=${pageSize}&page=${currentPage.value}`);
+                const newProducts = response.data.resutls.data;
 
-        if (newProducts.length === 0) {
-          // If no new data is received, all data has been fetched
-          allDataFetched = true;
-          loading.value = false;
-          return;
-        }
+                if (newProducts.length === 0) {
+                    // If no new data is received, all data has been fetched
+                    allDataFetched = true;
+                    loading.value = false;
+                    return;
+                }
 
 
-        products.value = [...products.value, ...newProducts];
-        total.value = response.data.resutls.meta.total;
-        from.value = response.data.resutls.meta.from;
-        to.value = response.data.resutls.meta.to;
-        currentPage.value++;
-        loading.value = false;
-      } catch (error) {
-        console.error(error);
-      } finally {
-        loadingMore = false;
-        loading.value = false;
-      }
-    };
+                products.value = [...products.value, ...newProducts];
+                total.value = response.data.resutls.meta.total;
+                from.value = response.data.resutls.meta.from;
+                to.value = response.data.resutls.meta.to;
+                currentPage.value++;
+                loading.value = false;
+            } catch (error) {
+                console.error(error);
+            } finally {
+                loadingMore = false;
+                loading.value = false;
+            }
+        };
 
-    const handleScroll = () => {
-        if (allDataFetched || loadingMore) return;
-      if (
-        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 200
-      ) {
-        loading.value = true;
-        loadMoreProducts();
-      }
-    };
+        const handleScroll = () => {
+            if (allDataFetched || loadingMore) return;
+            if (
+                window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 200
+            ) {
+                loading.value = true;
+                loadMoreProducts();
+            }
+        };
 
-    onMounted(() => {
-      loadMoreProducts();
-      scrollObserver.value = document.querySelector('#scrollObserver');
-      window.addEventListener('scroll', handleScroll);
-    });
+        onMounted(() => {
+            loadMoreProducts();
+            scrollObserver.value = document.querySelector('#scrollObserver');
+            window.addEventListener('scroll', handleScroll);
+        });
 
-    onUnmounted(() => {
-      window.removeEventListener('scroll', handleScroll);
-    });
+        onUnmounted(() => {
+            window.removeEventListener('scroll', handleScroll);
+        });
 
-    watch(selectedSortOption, () => {
-      sortProducts();
-    });
+        watch(selectedSortOption, () => {
+            sortProducts();
+        });
 
-    const sortProducts = () => {
-      let sorted = [...products.value];
-      if (selectedSortOption.value === 'asc') {
-        sorted = sorted.sort((a, b) => a.name.localeCompare(b.name));
-      } else if (selectedSortOption.value === 'dsc') {
-        sorted = sorted.sort((a, b) => b.name.localeCompare(a.name));
-      } else if (selectedSortOption.value === 'price_high_to_low') {
-        sorted = sorted.sort((a, b) => b.discounted_price - a.discounted_price);
-      } else if (selectedSortOption.value === 'price_low_to_high') {
-        sorted = sorted.sort((a, b) => a.discounted_price - b.discounted_price);
-      }
-      products.value = sorted;
-    };
+        const sortProducts = () => {
+            let sorted = [...products.value];
+            if (selectedSortOption.value === 'asc') {
+                sorted = sorted.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (selectedSortOption.value === 'dsc') {
+                sorted = sorted.sort((a, b) => b.name.localeCompare(a.name));
+            } else if (selectedSortOption.value === 'price_high_to_low') {
+                sorted = sorted.sort((a, b) => b.discounted_price - a.discounted_price);
+            } else if (selectedSortOption.value === 'price_low_to_high') {
+                sorted = sorted.sort((a, b) => a.discounted_price - b.discounted_price);
+            }else  if (selectedSortOption.value === 'default'){
+                sorted = sorted.sort((a, b) => a.id - b.id);
+                sorted.reverse();
+            }
+            products.value = sorted;
+        };
 
-    const sortedItems = computed(() => {
-      return products.value;
-    });
+        const sortedItems = computed(() => {
+            return products.value;
+        });
 
-    return {
-      loading, from, to, total, products, selectedSortOption, sortProducts, sortedItems
-    };
-  },
+        return {
+            loading, from, to, total, products, selectedSortOption, sortProducts, sortedItems
+        };
+    },
     components: { Product, LoadingPlaceholder }
 }
 </script>
