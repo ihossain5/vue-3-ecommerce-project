@@ -3,6 +3,7 @@ import { onUnmounted, onMounted, ref, watch, computed } from 'vue'
 import Product from '../components/Product.vue'
 import axios from 'axios';
 import { BASE_API_URL } from '../config';
+import LoadingPlaceholder from '../components/LoadingPlaceholder.vue';
 
 export default {
     setup() {
@@ -16,14 +17,24 @@ export default {
     const pageSize = 20;
     const scrollObserver = ref(null);
     let loadingMore = false;
+    let allDataFetched = false;
 
     const loadMoreProducts = async () => {
-      if (loadingMore) return; // Prevent further requests while loading
+        if (loadingMore || allDataFetched) return;
       loadingMore = true;
 
       try {
         const response = await axios.get(`${BASE_API_URL}/products?pagination=${pageSize}&page=${currentPage.value}`);
         const newProducts = response.data.resutls.data;
+
+        if (newProducts.length === 0) {
+          // If no new data is received, all data has been fetched
+          allDataFetched = true;
+          loading.value = false;
+          return;
+        }
+
+
         products.value = [...products.value, ...newProducts];
         total.value = response.data.resutls.meta.total;
         from.value = response.data.resutls.meta.from;
@@ -34,10 +45,12 @@ export default {
         console.error(error);
       } finally {
         loadingMore = false;
+        loading.value = false;
       }
     };
 
     const handleScroll = () => {
+        if (allDataFetched || loadingMore) return;
       if (
         window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 200
       ) {
@@ -82,7 +95,7 @@ export default {
       loading, from, to, total, products, selectedSortOption, sortProducts, sortedItems
     };
   },
-    components: { Product }
+    components: { Product, LoadingPlaceholder }
 }
 </script>
 
@@ -269,6 +282,7 @@ export default {
                             <Product :products="sortedItems"></Product>
 
                             <div ref="scrollObserver" style="height: 1px;"></div>
+                            <LoadingPlaceholder v-if="loading"></LoadingPlaceholder>
                         </div>
                     </div>
 
