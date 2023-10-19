@@ -1,59 +1,87 @@
 <script>
-import { computed, onMounted, ref } from 'vue'
+import { onUnmounted, onMounted, ref, watch, computed } from 'vue'
 import Product from '../components/Product.vue'
 import axios from 'axios';
 import { BASE_API_URL } from '../config';
 
 export default {
     setup() {
-        const loading = ref(true);
-        const products = ref([]);
-        const from = ref(0)
-        const to = ref(0)
-        const total = ref(0)
-        const selectedSortOption = ref('default');
+    const loading = ref(true);
+    const products = ref([]);
+    const from = ref(0);
+    const to = ref(0);
+    const total = ref(0);
+    const selectedSortOption = ref('default');
+    const currentPage = ref(1);
+    const pageSize = 20;
+    const scrollObserver = ref(null);
+    let loadingMore = false;
 
-        const sortedItems = computed(() => {
-            let sorted = [...products.value];
-            if (selectedSortOption.value === 'asc') {
-                sorted = sorted.sort((a, b) => a.name.localeCompare(b.name));
-            } else if (selectedSortOption.value === 'dsc') {
-                sorted = sorted.sort((a, b) => b.name.localeCompare(a.name));
-            } else if (selectedSortOption.value === 'price_high_to_low') {
-                sorted = sorted.sort((a, b) => b.discounted_price - a.discounted_price);
-            } else if (selectedSortOption.value === 'price_low_to_high') {
-                sorted = sorted.sort((a, b) => a.discounted_price - b.discounted_price);
-            }
-            return sorted;
-        });
+    const loadMoreProducts = async () => {
+      if (loadingMore) return; // Prevent further requests while loading
+      loadingMore = true;
 
-        onMounted(() => {
-            setTimeout(() => {
-                axios.get(`${BASE_API_URL}/products?pagination=20`)
-                    .then(response => {
-                        let value = response.data.resutls;
-                        products.value = value.data;
-                        total.value = value.meta.total;
-                        from.value = value.meta.from;
-                        to.value = value.meta.to;
-                        loading.value = false;
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        loading.value = false;
-                    });
-            }); // 2-second delay
+      try {
+        const response = await axios.get(`${BASE_API_URL}/products?pagination=${pageSize}&page=${currentPage.value}`);
+        const newProducts = response.data.resutls.data;
+        products.value = [...products.value, ...newProducts];
+        total.value = response.data.resutls.meta.total;
+        from.value = response.data.resutls.meta.from;
+        to.value = response.data.resutls.meta.to;
+        currentPage.value++;
+        loading.value = false;
+      } catch (error) {
+        console.error(error);
+      } finally {
+        loadingMore = false;
+      }
+    };
 
-        });
+    const handleScroll = () => {
+      if (
+        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 200
+      ) {
+        loading.value = true;
+        loadMoreProducts();
+      }
+    };
 
-        const sortProducts = () => {
-            // This method will recompute the sortedItems computed property
-        };
+    onMounted(() => {
+      loadMoreProducts();
+      scrollObserver.value = document.querySelector('#scrollObserver');
+      window.addEventListener('scroll', handleScroll);
+    });
 
-        return {
-            loading, from, to, total, sortedItems, products, selectedSortOption, sortProducts
-        };
-    },
+    onUnmounted(() => {
+      window.removeEventListener('scroll', handleScroll);
+    });
+
+    watch(selectedSortOption, () => {
+      sortProducts();
+    });
+
+    const sortProducts = () => {
+      let sorted = [...products.value];
+      if (selectedSortOption.value === 'asc') {
+        sorted = sorted.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (selectedSortOption.value === 'dsc') {
+        sorted = sorted.sort((a, b) => b.name.localeCompare(a.name));
+      } else if (selectedSortOption.value === 'price_high_to_low') {
+        sorted = sorted.sort((a, b) => b.discounted_price - a.discounted_price);
+      } else if (selectedSortOption.value === 'price_low_to_high') {
+        sorted = sorted.sort((a, b) => a.discounted_price - b.discounted_price);
+      }
+      products.value = sorted;
+    };
+
+    const sortedItems = computed(() => {
+      return products.value;
+    });
+
+    return {
+      loading, from, to, total, products, selectedSortOption, sortProducts, sortedItems
+    };
+  },
     components: { Product }
 }
 </script>
@@ -217,7 +245,7 @@ export default {
                                     <div class="flex_item d-flex justify-content-end align-items-center gap-3">
                                         <span class="fs_16 lh_23 text-capitalize">Sort By:</span>
                                         <select class="short_by form-select fs_14 lh_20 fc_gd" v-model="selectedSortOption">
-                                            <option selected>Default</option>
+                                            <option selected value="default">Default</option>
                                             <option value="asc">Name (A-z)</option>
                                             <option value="dsc">Name (Z-a)</option>
                                             <option value="price_high_to_low">Price (High To Low)</option>
@@ -239,6 +267,8 @@ export default {
                     <div class="pt-4 products_wrapper spb">
                         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-md-4">
                             <Product :products="sortedItems"></Product>
+
+                            <div ref="scrollObserver" style="height: 1px;"></div>
                         </div>
                     </div>
 
