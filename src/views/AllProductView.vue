@@ -1,40 +1,65 @@
 <script>
-import { ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import Product from '../components/Product.vue'
+import axios from 'axios';
+import { BASE_API_URL } from '../config';
 
 export default {
-  components: { Product },
-  setup() {
-    const products = ref({})
-    const from = ref(0)
-    const to = ref(0)
-    const total = ref(0)
-    return {
-        products,
-        from,
-        total,
-        to
-    }
-  },
-  async created() {
-    await fetch(this.BASE_API_URL+"/products?pagination=20", {
-        method: 'GET' //optional
-    })
-      .then(async (response) => {
-        const data = await response.json()
+    setup() {
+        const loading = ref(true);
+        const products = ref([]);
+        const from = ref(0)
+        const to = ref(0)
+        const total = ref(0)
+        const selectedSortOption = ref('default');
 
-        this.products = data.resutls.data
-        this.total = data.resutls.meta.total
-        this.from = data.resutls.meta.from
-        this.to = data.resutls.meta.to
-      })
-      .catch((error) => {return error})
-  },
+        const sortedItems = computed(() => {
+            let sorted = [...products.value];
+            if (selectedSortOption.value === 'asc') {
+                sorted = sorted.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (selectedSortOption.value === 'dsc') {
+                sorted = sorted.sort((a, b) => b.name.localeCompare(a.name));
+            } else if (selectedSortOption.value === 'price_high_to_low') {
+                sorted = sorted.sort((a, b) => b.discounted_price - a.discounted_price);
+            } else if (selectedSortOption.value === 'price_low_to_high') {
+                sorted = sorted.sort((a, b) => a.discounted_price - b.discounted_price);
+            }
+            return sorted;
+        });
+
+        onMounted(() => {
+            setTimeout(() => {
+                axios.get(`${BASE_API_URL}/products?pagination=20`)
+                    .then(response => {
+                        let value = response.data.resutls;
+                        products.value = value.data;
+                        total.value = value.meta.total;
+                        from.value = value.meta.from;
+                        to.value = value.meta.to;
+                        loading.value = false;
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        loading.value = false;
+                    });
+            }); // 2-second delay
+
+        });
+
+        const sortProducts = () => {
+            // This method will recompute the sortedItems computed property
+        };
+
+        return {
+            loading, from, to, total, sortedItems, products, selectedSortOption, sortProducts
+        };
+    },
+    components: { Product }
 }
 </script>
 
 <template>
-        <section class="breadcrum_sc">
+    <section class="breadcrum_sc">
         <div class="container-fluid container-xxxl">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -47,8 +72,8 @@ export default {
         </div>
     </section>
 
-        <!-- all products -->
-        <section class="products_sc spb">
+    <!-- all products -->
+    <section class="products_sc spb">
         <div class="container-fluid container-xxxl">
             <div class="row">
                 <div class="col-12 col-lg-3 col-xxl-2 offcanvas offcanvas-start" id="offcanvasCategory">
@@ -94,12 +119,12 @@ export default {
                             <div class="filter_item accordion" id="accordionExample">
                                 <div class="accordion-item">
                                     <div class="accordion-header" id="headingOne">
-                                        <button class="accordion-button collapsed" type="button"
-                                            data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                                            aria-expanded="false" aria-controls="collapseOne">brand</button>
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="false"
+                                            aria-controls="collapseOne">brand</button>
                                     </div>
-                                    <div id="collapseOne" class="accordion-collapse collapse"
-                                        aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+                                        data-bs-parent="#accordionExample">
                                         <div class="accordion-body">
                                             <div class="d-flex gap-2 mt-3 pt-1">
                                                 <input type="checkbox">
@@ -173,7 +198,7 @@ export default {
                         <div class="row align-items-end gy-4 gy-md-0">
                             <div class="col-12 col-md-6 text-center text-md-start">
                                 <h1 class="fw_6 fs_30 lh_43 pb-2 pb-md-3 pb-lg-4">Products</h1>
-                                <span class="fs_16 lh_23 pb-3 pb-md-0">Showing {{ from }} to {{to}} of {{total}}</span>
+                                <span class="fs_16 lh_23 pb-3 pb-md-0">Showing {{ from }} to {{ to }} of {{ total }}</span>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -191,18 +216,19 @@ export default {
                                     </div>
                                     <div class="flex_item d-flex justify-content-end align-items-center gap-3">
                                         <span class="fs_16 lh_23 text-capitalize">Sort By:</span>
-                                        <select class="short_by form-select fs_14 lh_20 fc_gd">
+                                        <select class="short_by form-select fs_14 lh_20 fc_gd" v-model="selectedSortOption">
                                             <option selected>Default</option>
-                                            <option value="1">One</option>
-                                            <option value="2">Two</option>
-                                            <option value="3">Three</option>
+                                            <option value="asc">Name (A-z)</option>
+                                            <option value="dsc">Name (Z-a)</option>
+                                            <option value="price_high_to_low">Price (High To Low)</option>
+                                            <option value="price_low_to_high">Price (Low To High)</option>
                                         </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                     <!-- <div class="row align-items-end gy-4 gy-md-0">
+                    <!-- <div class="row align-items-end gy-4 gy-md-0">
                          <div class="col-12 col-md-6 text-center text-md-start">
                              <span class="fs_16 lh_23 pb-3 pb-md-0">Product not found</span>
                          </div>
@@ -212,12 +238,12 @@ export default {
                     <!-- products -->
                     <div class="pt-4 products_wrapper spb">
                         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-md-4">
-                            <Product :products="products"></Product>
+                            <Product :products="sortedItems"></Product>
                         </div>
                     </div>
 
                     <!-- pagination -->
-                  
+
                 </div>
             </div>
         </div>
