@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import Product from '../components/Product.vue'
 
 import { BASE_API_URL } from '../config';
+import ProductFilterDropDown from '../components/ProductFilterDropDown.vue';
 
 
 export default {
@@ -12,14 +13,14 @@ export default {
         const selectedSortOption = ref('default');
 
         return {
-           selectedSortOption, Base_Url
+            selectedSortOption, Base_Url
         };
     },
-    components: { Product }
+    components: { Product, ProductFilterDropDown }
 }
 </script>
 <template>
-     <section class="breadcrum_sc">
+    <section class="breadcrum_sc">
         <div class="container-fluid container-xxxl">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
@@ -174,16 +175,9 @@ export default {
                                             Filter
                                         </button>
                                     </div>
-                                    <div class="flex_item d-flex justify-content-end align-items-center gap-3">
-                                        <span class="fs_16 lh_23 text-capitalize">Sort By:</span>
-                                        <select class="short_by form-select fs_14 lh_20 fc_gd" v-model="selectedSortOption">
-                                            <option selected value="default">Default</option>
-                                            <option value="asc">Name (A-z)</option>
-                                            <option value="dsc">Name (Z-a)</option>
-                                            <option value="price_high_to_low">Price (High To Low)</option>
-                                            <option value="price_low_to_high">Price (Low To High)</option>
-                                        </select>
-                                    </div>
+                                    <ProductFilterDropDown :selectedSortOption="selectedSortOption"
+                                        @update:selectedSortOption="selectedSortOption = $event">
+                                    </ProductFilterDropDown>
                                 </div>
                             </div>
                         </div>
@@ -192,7 +186,7 @@ export default {
                     <!-- products -->
                     <div class="pt-4 products_wrapper spb">
                         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-md-4">
-                            <Product :baseUlr="Base_Url" :selectedSortOption="selectedSortOption" ></Product>
+                            <Product :baseUlr="Base_Url" :selectedSortOption="selectedSortOption"></Product>
                         </div>
                     </div>
                 </div>

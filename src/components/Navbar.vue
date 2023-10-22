@@ -295,7 +295,7 @@ export default {
                 <div class="d-none d-md-block">
                     <div class="d-flex justify-content-between align-items-center">
                         <nav>
-                            <a href="/" class="fw_5 fs_14 lh_20 fc_white text-capitalize" v-for="category in filteredData" :key="category.id">{{ category.name }}</a>
+                            <router-link class="fw_5 fs_14 lh_20 fc_white text-capitalize" v-for="category in filteredData" :key="category.id"  :to="category.id === 8 ? '/all-accessories' : '/' " >{{ category.name }}</router-link>
                         </nav>
                         <a href="order-tracking.html" class="fw_5 fs_14 lh_20 fc_white text-capitalize">Order
                             Tracking</a>

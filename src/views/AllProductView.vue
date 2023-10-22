@@ -4,6 +4,7 @@ import Product from '../components/Product.vue'
 import axios from 'axios';
 import { BASE_API_URL } from '../config';
 import LoadingPlaceholder from '../components/LoadingPlaceholder.vue';
+import ProductFilterDropDown from '../components/ProductFilterDropDown.vue';
 
 export default {
     setup() {
@@ -93,7 +94,7 @@ export default {
             loading, selectedSortOption, Base_Url
         };
     },
-    components: { Product, LoadingPlaceholder }
+    components: { Product, LoadingPlaceholder, ProductFilterDropDown }
 }
 </script>
 
@@ -253,16 +254,7 @@ export default {
                                             Filter
                                         </button>
                                     </div>
-                                    <div class="flex_item d-flex justify-content-end align-items-center gap-3">
-                                        <span class="fs_16 lh_23 text-capitalize">Sort By:</span>
-                                        <select class="short_by form-select fs_14 lh_20 fc_gd" v-model="selectedSortOption">
-                                            <option selected value="default">Default</option>
-                                            <option value="asc">Name (A-z)</option>
-                                            <option value="dsc">Name (Z-a)</option>
-                                            <option value="price_high_to_low">Price (High To Low)</option>
-                                            <option value="price_low_to_high">Price (Low To High)</option>
-                                        </select>
-                                    </div>
+                                    <ProductFilterDropDown :selectedSortOption="selectedSortOption" @update:selectedSortOption="selectedSortOption = $event"></ProductFilterDropDown>
                                 </div>
                             </div>
                         </div>
