@@ -5,6 +5,7 @@ import SignIn from '../views/SignInView.vue'
 import SignUp from '../views/SignUpView.vue'
 import AllBrands from '../views/AllBrandView.vue'
 import ProductView from '../views/AllProductView.vue'
+import AccessoriesView from '../views/AllAccessoriesView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,6 +33,11 @@ const router = createRouter({
       path: '/all-products',
       name: 'products',
       component: ProductView
+    },    
+    {
+      path: '/all-accessories',
+      name: 'all-accessories',
+      component: AccessoriesView
     },
     {
       path: '/blogs',

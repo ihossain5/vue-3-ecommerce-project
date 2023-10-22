@@ -1,5 +1,5 @@
 <script>
-import { onUnmounted, onMounted, ref, watch, computed } from 'vue'
+import { onUnmounted, onMounted, ref, computed } from 'vue'
 import axios from 'axios';
 import LoadingPlaceholder from './LoadingPlaceholder.vue';
 export default {
@@ -62,34 +62,31 @@ export default {
         onUnmounted(() => {
             window.removeEventListener('scroll', handleScroll);
         });
-        // watch(selectedSortOption, () => {
-        //     sortProducts();
-        // });
-        const sortProducts = () => {
+
+        const sortedProducts = computed(() => {
+
             let sorted = [...products.value];
-            if (selectedSortOption.value === 'asc') {
-                sorted = sorted.sort((a, b) => a.name.localeCompare(b.name));
-            }
-            else if (selectedSortOption.value === 'dsc') {
-                sorted = sorted.sort((a, b) => b.name.localeCompare(a.name));
-            }
-            else if (selectedSortOption.value === 'price_high_to_low') {
-                sorted = sorted.sort((a, b) => b.discounted_price - a.discounted_price);
-            }
-            else if (selectedSortOption.value === 'price_low_to_high') {
-                sorted = sorted.sort((a, b) => a.discounted_price - b.discounted_price);
-            }
-            else if (selectedSortOption.value === 'default') {
+
+            if (props.selectedSortOption === 'asc') {
+                sorted.sort((a, b) => a.name.localeCompare(b.name));
+            } else if (props.selectedSortOption === 'dsc') {
+                sorted.sort((a, b) => b.name.localeCompare(a.name));
+            } else if (props.selectedSortOption === 'price_high_to_low') {
+                sorted.sort((a, b) => b.discounted_price - a.discounted_price);
+            } else if (props.selectedSortOption === 'price_low_to_high') {
+                sorted.sort((a, b) => a.discounted_price - b.discounted_price);
+            }else if (props.selectedSortOption === 'default') {
                 sorted = sorted.sort((a, b) => a.id - b.id);
                 sorted.reverse();
             }
-            products.value = sorted;
-        };
-        const sortedItems = computed(() => {
-            return products.value;
+
+
+            return sorted;
         });
+
+
         return {
-            loading, from, to, total, products, sortProducts, sortedItems
+            loading, from, to, total, products, sortedProducts
         };
     },
     components: { LoadingPlaceholder }
@@ -97,8 +94,7 @@ export default {
 </script>
 
 <template>
-<div class="row row-cols-2 row-cols-sm-3 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-md-4">
-    <div class="row_item" v-for="product in products" :key="product.id">
+    <div class="row_item" v-for="product in sortedProducts" :key="product.id">
         <div class="position-relative overflow-hidden prd_card br_5 bxy_gl bs_15 tbs_tb_3 hover">
             <a href="#" class="d-block">
                 <div class="position-relative d-flex justify-content-center align-items-center img_box">
@@ -108,7 +104,7 @@ export default {
                         <h4 class="fw_6 fs_20 lh_29 fc_red text-center text-uppercase">sold out</h4>
                     </div>
                     <div class="position-absolute disc_box bg_red" v-if="product.discount !== null">
-                        <span class="fs_14 lh_20 fc_white">{{product.discount}}%</span>
+                        <span class="fs_14 lh_20 fc_white">{{ product.discount }}%</span>
                         <div class="position-absolute triangle_topleft"></div>
                     </div>
                 </div>
@@ -181,5 +177,4 @@ export default {
     </div>
     <div ref="scrollObserver" style="height: 1px;"></div>
     <LoadingPlaceholder v-if="loading"></LoadingPlaceholder>
-</div>
 </template>

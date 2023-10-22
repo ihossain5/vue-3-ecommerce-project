@@ -5,6 +5,7 @@ import Product from '../../Product.vue'
 import LoadingPlaceholder from '../../LoadingPlaceholder.vue'
 
 import { BASE_API_URL } from '../../../config.js';
+import AccessoryProduct from './AccessoryProduct.vue';
 
 
 export default {
@@ -31,7 +32,7 @@ export default {
       accessories,
     };
   },
-  components: { Product, LoadingPlaceholder }
+  components: { Product, LoadingPlaceholder, AccessoryProduct }
 }
 </script>
 
@@ -40,15 +41,15 @@ export default {
     <div class="container-fluid container-xxxl">
       <div class="sc_title_wrapper">
         <h1 class="sc_title">Accessories</h1>
-        <a href="#" class="br_5 bg_red btnp_1228 tbg_3 hover">
+        <router-link to="/all-accessories" class="br_5 bg_red btnp_1228 tbg_3 hover">
           <span class="fw_5 fs_14 lh_20 fc_white text-uppercase">view all</span>
-        </a>
+        </router-link>
       </div>
       <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-2 g-md-4">
         <!-- Display a loading indicator or skeleton screen -->
         <LoadingPlaceholder v-if="loading"></LoadingPlaceholder>
 
-        <Product :products="accessories"></Product>
+        <AccessoryProduct :products="accessories"></AccessoryProduct>
 
       </div>
     </div>

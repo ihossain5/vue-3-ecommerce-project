@@ -1,35 +1,21 @@
 <script>
-import { ref,onMounted } from 'vue'
+import { ref } from 'vue'
 import Product from '../../Product.vue'
-import axios from 'axios';
-import LoadingPlaceholder from '../../LoadingPlaceholder.vue'
 import { BASE_API_URL } from '../../../config.js';
 
 export default {
     setup() {
-    const loading = ref(true); 
-    const products = ref({});
 
-    onMounted(() => {
-      setTimeout(() => {
-        axios.get(`${BASE_API_URL}/products`)
-          .then(response => {
-            products.value = response.data.resutls.data;
-            loading.value = false; 
-          })
-          .catch(error => {
-            console.error(error);
-            loading.value = false; 
-          });
-      }); // 2-second delay
-    });
+    const Base_Url = `${BASE_API_URL}/products`
+
+    const selectedSortOption = ref('default');
 
     return {
-      loading,
-      products,
+      Base_Url,
+      selectedSortOption
     };
   },
-  components: { Product, LoadingPlaceholder }
+  components: { Product }
 }
 
 
@@ -47,9 +33,10 @@ export default {
       </div>
 
       <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-2 g-md-4">
-         <LoadingPlaceholder v-if="loading"></LoadingPlaceholder>
-         <Product :products="products"></Product>
-        
+
+         <Product :baseUlr="Base_Url" :selectedSortOption="selectedSortOption" ></Product>
+
+         
       </div>
 
       <!-- <div class="load_more_wrapper mt-5 pt-3 text-center">
