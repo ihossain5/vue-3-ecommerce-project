@@ -1,100 +1,23 @@
 <script>
-import { onUnmounted, onMounted, ref, watch, computed } from 'vue'
+import {ref} from 'vue'
 import Product from '../components/Product.vue'
-import axios from 'axios';
 import { BASE_API_URL } from '../config';
 import LoadingPlaceholder from '../components/LoadingPlaceholder.vue';
 import ProductFilterDropDown from '../components/ProductFilterDropDown.vue';
+import ProductFilter from '../components/ProductFilter.vue';
 
 export default {
     setup() {
-        const loading = ref(true);
-
         const Base_Url = `${BASE_API_URL}/products`
 
         const selectedSortOption = ref('default');
-
-
-        // const loadMoreProducts = async () => {
-        //     if (loadingMore || allDataFetched) return;
-        //     loadingMore = true;
-
-        //     try {
-        //         const response = await axios.get(`${BASE_API_URL}/products?pagination=${pageSize}&page=${currentPage.value}`);
-        //         const newProducts = response.data.resutls.data;
-
-        //         if (newProducts.length === 0) {
-        //             // If no new data is received, all data has been fetched
-        //             allDataFetched = true;
-        //             loading.value = false;
-        //             return;
-        //         }
-
-
-        //         products.value = [...products.value, ...newProducts];
-        //         total.value = response.data.resutls.meta.total;
-        //         from.value = response.data.resutls.meta.from;
-        //         to.value = response.data.resutls.meta.to;
-        //         currentPage.value++;
-        //         loading.value = false;
-        //     } catch (error) {
-        //         console.error(error);
-        //     } finally {
-        //         loadingMore = false;
-        //         loading.value = false;
-        //     }
-        // };
-
-        // const handleScroll = () => {
-        //     if (allDataFetched || loadingMore) return;
-        //     if (
-        //         window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 200
-        //     ) {
-        //         loading.value = true;
-        //         loadMoreProducts();
-        //     }
-        // };
-
-        // onMounted(() => {
-        //     loadMoreProducts();
-        //     scrollObserver.value = document.querySelector('#scrollObserver');
-        //     window.addEventListener('scroll', handleScroll);
-        // });
-
-        // onUnmounted(() => {
-        //     window.removeEventListener('scroll', handleScroll);
-        // });
-
-        // watch(selectedSortOption, () => {
-        //     sortProducts();
-        // });
-
-        // const sortProducts = () => {
-        //     let sorted = [...products.value];
-        //     if (selectedSortOption.value === 'asc') {
-        //         sorted = sorted.sort((a, b) => a.name.localeCompare(b.name));
-        //     } else if (selectedSortOption.value === 'dsc') {
-        //         sorted = sorted.sort((a, b) => b.name.localeCompare(a.name));
-        //     } else if (selectedSortOption.value === 'price_high_to_low') {
-        //         sorted = sorted.sort((a, b) => b.discounted_price - a.discounted_price);
-        //     } else if (selectedSortOption.value === 'price_low_to_high') {
-        //         sorted = sorted.sort((a, b) => a.discounted_price - b.discounted_price);
-        //     }else  if (selectedSortOption.value === 'default'){
-        //         sorted = sorted.sort((a, b) => a.id - b.id);
-        //         sorted.reverse();
-        //     }
-        //     products.value = sorted;
-        // };
-
-        // const sortedItems = computed(() => {
-        //     return products.value;
-        // });
+        const selectedCategoryCheckbox = ref('all');
 
         return {
-            loading, selectedSortOption, Base_Url
+            selectedSortOption, Base_Url, selectedCategoryCheckbox
         };
     },
-    components: { Product, LoadingPlaceholder, ProductFilterDropDown }
+    components: { Product, LoadingPlaceholder, ProductFilterDropDown, ProductFilter }
 }
 </script>
 
@@ -116,122 +39,11 @@ export default {
     <section class="products_sc spb">
         <div class="container-fluid container-xxxl">
             <div class="row">
+
                 <div class="col-12 col-lg-3 col-xxl-2 offcanvas offcanvas-start" id="offcanvasCategory">
-                    <div class="filter_wrapper br_5 overflow-hidden">
-                        <div class="d-flex justify-content-between align-items-center filter_header bg_black">
-                            <h4 class="fw_5 fs_20 lh_32 fc_white text-uppercase">filter</h4>
-                            <button class="fw_5 fs_14 lh_20 fc_white text-uppercase">clear all</button>
-                        </div>
-                        <div class="filter_body">
-                            <div class="filter_item">
-                                <h5 class=" pb-2 fw_5 fs_17 lh_25 bb_gl  text-uppercase">MAIN CATEGORY</h5>
-                                <div>
-                                    <div class="d-flex gap-2 mt-3 pt-1">
-                                        <input type="radio" name="mainCtg" checked>
-                                        <label class="fs_15 lh_25">All Items</label>
-                                    </div>
-                                    <div class="d-flex gap-2 mt-3">
-                                        <input type="radio" name="mainCtg">
-                                        <label class="fs_15 lh_25">Honda Motorcycle Official Accessories</label>
-                                    </div>
-                                    <div class="d-flex gap-2 mt-3">
-                                        <input type="radio" name="mainCtg">
-                                        <label class="fs_15 lh_25">Helmet</label>
-                                    </div>
-                                    <div class="d-flex gap-2 mt-3">
-                                        <input type="radio" name="mainCtg">
-                                        <label class="fs_15 lh_25">Honda Motorcycles</label>
-                                    </div>
-                                    <div class="d-flex gap-2 mt-3">
-                                        <input type="radio" name="mainCtg">
-                                        <label class="fs_15 lh_25">Oil</label>
-                                    </div>
-                                    <div class="d-flex gap-2 mt-3">
-                                        <input type="radio" name="mainCtg">
-                                        <label class="fs_15 lh_25">Apparel</label>
-                                    </div>
-                                    <div class="d-flex gap-2 mt-3">
-                                        <input type="radio" name="mainCtg">
-                                        <label class="fs_15 lh_25">Honda Motorcycle Authorized Parts</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="filter_item accordion" id="accordionExample">
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="headingOne">
-                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne" aria-expanded="false"
-                                            aria-controls="collapseOne">brand</button>
-                                    </div>
-                                    <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
-                                        data-bs-parent="#accordionExample">
-                                        <div class="accordion-body">
-                                            <div class="d-flex gap-2 mt-3 pt-1">
-                                                <input type="checkbox">
-                                                <label class="fs_15 lh_25">yahama</label>
-                                            </div>
-                                            <div class="d-flex gap-2 mt-3">
-                                                <input type="checkbox">
-                                                <label class="fs_15 lh_25">Bajaj</label>
-                                            </div>
-                                            <div class="d-flex gap-2 mt-3">
-                                                <input type="checkbox">
-                                                <label class="fs_15 lh_25">BMW</label>
-                                            </div>
-                                            <div class="d-flex gap-2 mt-3">
-                                                <input type="checkbox">
-                                                <label class="fs_15 lh_25">KTM</label>
-                                            </div>
-                                            <div class="d-flex gap-2 mt-3">
-                                                <input type="checkbox">
-                                                <label class="fs_15 lh_25">Runner</label>
-                                            </div>
-                                            <div class="d-flex gap-2 mt-3">
-                                                <input type="checkbox">
-                                                <label class="fs_15 lh_25">Suzuki</label>
-                                            </div>
-                                            <div class="d-flex gap-2 mt-3">
-                                                <input type="checkbox">
-                                                <label class="fs_15 lh_25">Hero</label>
-                                            </div>
-                                            <div class="d-flex gap-2 mt-3">
-                                                <input type="checkbox">
-                                                <label class="fs_15 lh_25">TVS</label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="filter_item accordion">
-                                    <div class="accordion-item">
-                                        <div class="accordion-header" id="headingTwo">
-                                            <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                                                aria-expanded="false" aria-controls="collapseTwo">motor</button>
-                                        </div>
-                                        <div id="collapseTwo" class="accordion-collapse collapse"
-                                            aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                                            <div class="accordion-body">
-                                                <div class="d-flex gap-2 mt-3 pt-1">
-                                                    <input type="checkbox">
-                                                    <label class="fs_15 lh_25">ADV 150 (2019 - 2022)</label>
-                                                </div>
-                                                <div class="d-flex gap-2 mt-3">
-                                                    <input type="checkbox">
-                                                    <label class="fs_15 lh_25">ADV 160 (2022 - Sekarang)</label>
-                                                </div>
-                                                <div class="d-flex align-items-start gap-2 mt-3">
-                                                    <input type="checkbox">
-                                                    <label class="fs_15 lh_25">BeAT dan BeAT Street K1A (2020 -
-                                                        Sekarang)</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <ProductFilter :selectedCategoryCheckbox="selectedCategoryCheckbox"></ProductFilter>
                 </div>
+
                 <div class="col-12 col-lg-9 col-xxl-10">
 
                     <div class="prd_page_header pb-3">
@@ -271,14 +83,7 @@ export default {
                         <div class="row row-cols-2 row-cols-sm-3 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-md-4">
                             <Product :baseUlr="Base_Url" :selectedSortOption="selectedSortOption" ></Product>
                         </div>
-<!-- 
-                            <div ref="scrollObserver" style="height: 1px;"></div>
-                            <LoadingPlaceholder v-if="loading"></LoadingPlaceholder> -->
-                       
                     </div>
-
-                    <!-- pagination -->
-
                 </div>
             </div>
         </div>

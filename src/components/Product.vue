@@ -100,7 +100,7 @@ export default {
                 <div class="position-relative d-flex justify-content-center align-items-center img_box">
                     <img :src="product.images" alt="thumb" class="w-100">
 
-                    <div class="position-absolute sold_smg_box" v-if="product.discount !== null">
+                    <div class="position-absolute sold_smg_box" v-if="product.quantity < 1">
                         <h4 class="fw_6 fs_20 lh_29 fc_red text-center text-uppercase">sold out</h4>
                     </div>
                     <div class="position-absolute disc_box bg_red" v-if="product.discount !== null">
