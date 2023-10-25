@@ -41,7 +41,7 @@ export default {
             <div class="row">
 
                 <div class="col-12 col-lg-3 col-xxl-2 offcanvas offcanvas-start" id="offcanvasCategory">
-                    <ProductFilter :selectedCategoryCheckbox="selectedCategoryCheckbox"></ProductFilter>
+                    <ProductFilter></ProductFilter>
                 </div>
 
                 <div class="col-12 col-lg-9 col-xxl-10">

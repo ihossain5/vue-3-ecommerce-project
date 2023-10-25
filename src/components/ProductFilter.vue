@@ -1,5 +1,5 @@
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch  } from 'vue';
 import axios from 'axios';
 
 import { BASE_API_URL } from '../config.js';
@@ -12,11 +12,12 @@ export default {
     setup() {
         const loading = ref(true);
         const categories = ref({});
-        const selectedCategoryCheckbox = ref('all');
+        const allItemsSelected = ref('all');
+        const selectedCategoryCheckbox = ref(null);
 
         onMounted(() => {
             setTimeout(() => {
-                axios.get(`${BASE_API_URL}/categories`)
+                axios.get(`${BASE_API_URL}/all-categories`)
                     .then(response => {
                         categories.value = response.data.resutls;
                         loading.value = false;
@@ -28,11 +29,15 @@ export default {
             }); // 2-second delay
         });
 
+    watch(selectedCategoryCheckbox, (newVal, oldVal) => {
+      console.log('Selected Category Changed:', newVal);
+    });
 
         return {
             loading,
             categories,
-            selectedCategoryCheckbox
+            selectedCategoryCheckbox,
+            allItemsSelected
         };
     },
 }
@@ -49,7 +54,7 @@ export default {
                 <h5 class=" pb-2 fw_5 fs_17 lh_25 bb_gl  text-uppercase">MAIN CATEGORY</h5>
                 <div>
                     <div class="d-flex gap-2 mt-3 pt-1">
-                        <input type="radio" name="mainCtg" v-model="selectedCategoryCheckbox" value="all"  :id="'category-all'">
+                        <input type="radio" name="mainCtg" :id="'category-all'" v-model="allItemsSelected" value="all">
                         <label class="fs_15 lh_25" :for="'category-all'">All Items</label>
                     </div>
 
