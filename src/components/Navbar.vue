@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 import { BASE_API_URL } from '../config.js';
+import { useAuthStore } from '../store/auth';
 
 
 export default {
@@ -10,6 +11,7 @@ export default {
     const loading = ref(true); 
     const categories = ref({});
     const filteredData = ref([]);
+    const authStore = useAuthStore();
 
     onMounted(() => {
       setTimeout(() => {
@@ -31,7 +33,7 @@ export default {
       loading,
       categories,
       filteredData,
-
+      authStore
     };
   },
 }
@@ -143,12 +145,12 @@ export default {
                     <div class="col-md-4 col-lg-3 d-none d-md-block">
                         <div class="d-flex justify-content-end align-items-center meta_controls">
                             <div class="text-start">
-                                <p class="fw_6 fs_14 lh_20">
+                                <p class="fw_6 fs_14 lh_20" v-if="!authStore.token">
                                     <router-link to="sign-in" class="fc_black">Sign In</router-link>
                                     <router-link to="sign-up" class="fc_black">/ Sign Up</router-link>
                                 </p>
-                                <!-- <span class="fs_14 lh_20 mb-1">My Account</span>
-                                <div class="dropdown">
+                                <span class="fs_14 lh_20 mb-1" v-if="authStore.token">My Account</span>
+                                <div class="dropdown" v-if="authStore.token">
                                     <button class="dropdown-toggle fw_6 fs_14 lh_20 fc_black" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         Account Holder
@@ -214,7 +216,7 @@ export default {
                                             </a>
                                         </li>
                                     </ul>
-                                </div> -->
+                                </div>
                             </div>
                             <a href="compare.html"
                                 class="badge_btn position-relative bg_red rounded-circle d-flex justify-content-center align-items-center fs_20">
