@@ -1,3 +1,13 @@
+
+<script>
+import EyeSvg from '../components/EyeSvg.vue';
+
+export default {
+    components: { EyeSvg }
+}
+
+</script>
+
 <template>
     <section class="spy">
     <div class="container-fluid container-xxxl">
@@ -16,7 +26,7 @@
                         <div class="position-relative passowrd_field">
                             <input type="password" name="password" class="input_field" placeholder="Password">
                             <button type="button">
-                                <img src="frontend/assets/icons/eye-off.svg" alt="icon">
+                                <EyeSvg></EyeSvg>
                             </button>
                         </div>
                     </div>
