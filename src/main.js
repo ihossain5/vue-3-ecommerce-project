@@ -14,8 +14,10 @@ app.use(createPinia());
 const authStore = useAuthStore();
 
 const authToken = localStorage.getItem('authToken');
+const authUser = localStorage.getItem('authUser');
 if (authToken) {
     authStore.token = authToken;
+    authStore.user = JSON.parse(authUser);
 }
 
 app.use(router)

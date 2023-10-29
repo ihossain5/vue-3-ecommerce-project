@@ -17,7 +17,7 @@ export default {
             await authStore.login(mobile.value, password.value);
 
             if (authStore.user && authStore.token) {
-                router.go(-1); // This will navigate back to the previous page
+                router.back(); // This will navigate back to the previous page
             }
         };
 

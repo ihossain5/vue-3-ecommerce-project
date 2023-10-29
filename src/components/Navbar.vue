@@ -1,10 +1,11 @@
 <script>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import "bootstrap"
 
 import { BASE_API_URL } from '../config.js';
 import { useAuthStore } from '../store/auth';
-
+import router from '../router/index';
 
 export default {
   setup() {
@@ -12,6 +13,17 @@ export default {
     const categories = ref({});
     const filteredData = ref([]);
     const authStore = useAuthStore();
+
+    const logout = () => {
+      // Clear the token and any user-related data
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('authUser');
+      authStore.user = null;
+      authStore.token = null;
+      
+      // Redirect to the login page
+      router.push({ name: 'signIn' });
+    };
 
     onMounted(() => {
       setTimeout(() => {
@@ -33,7 +45,8 @@ export default {
       loading,
       categories,
       filteredData,
-      authStore
+      authStore,
+      logout
     };
   },
 }
@@ -153,7 +166,7 @@ export default {
                                 <div class="dropdown" v-if="authStore.token">
                                     <button class="dropdown-toggle fw_6 fs_14 lh_20 fc_black" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        Account Holder
+                                        {{ authStore.user.name}}
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
@@ -199,7 +212,7 @@ export default {
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="d-flex align-items-center gap-3 svg_20" href="/">
+                                            <button class="d-flex align-items-center gap-3 svg_20"  @click="logout">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     viewBox="0 0 20 20" fill="none">
                                                     <path
@@ -213,7 +226,7 @@ export default {
                                                         stroke-linecap="round" stroke-linejoin="round" />
                                                 </svg>
                                                 <span class="fs_15 lh_20 fc_gd text-capitalize">sign out</span>
-                                            </a>
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>
