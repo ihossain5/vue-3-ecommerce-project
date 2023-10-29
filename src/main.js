@@ -2,10 +2,10 @@
 import { createPinia } from 'pinia';
 import { createApp } from 'vue'
 import App from './App.vue'
-import router from './router'
+
 import { BASE_API_URL } from './config.js';
 import { useAuthStore } from './store/auth';
-
+import router from './router'
 
 const app = createApp(App)
 
