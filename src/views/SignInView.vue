@@ -2,7 +2,7 @@
 <script>
 import EyeSvg from '../components/EyeSvg.vue';
 import { useAuthStore } from '@/store/auth'; 
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import router from '../router/index';
 
 
@@ -11,6 +11,10 @@ export default {
         const authStore = useAuthStore();
         const mobile = ref('');
         const password = ref('');
+
+    const isSubmitDisabled = computed(() => {
+      return !mobile.value || !password.value;
+    });
 
         const handleLogin = async (e) => {
             e.preventDefault();
@@ -25,6 +29,7 @@ export default {
             mobile,
             password,
             handleLogin,
+            isSubmitDisabled
         };
     },
     components: { EyeSvg }
@@ -57,7 +62,7 @@ export default {
                         <a class="fs_17 lh_25 fc_black not_hover text-capitalize text-decoration-underline">Forgot
                             password?</a>
                         <div class="smy_4">
-                            <button type="submit" class="br_5 bg_red btnp_1228 tbg_3 hover w-100">
+                            <button type="submit" class="br_5 bg_red btnp_1228 tbg_3 hover w-100" :disabled="isSubmitDisabled" :style="{ opacity: isSubmitDisabled ? '0.5' : '1' }">
                                 <span class="fw_5 fs_14 lh_20 fc_white text-uppercase">Sign In</span>
                             </button>
                         </div>

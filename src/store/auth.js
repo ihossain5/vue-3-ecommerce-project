@@ -2,6 +2,7 @@
 
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import { useToast } from 'vue-toastification';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -27,7 +28,8 @@ export const useAuthStore = defineStore('auth', {
 
 
     } catch (error) {
-        // Handle login error
+       const toast = useToast();
+        toast.error(error.response.data.message); 
       }
     },
   },

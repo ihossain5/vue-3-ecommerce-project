@@ -2,7 +2,8 @@
 import { createPinia } from 'pinia';
 import { createApp } from 'vue'
 import App from './App.vue'
-
+import Toast, { POSITION } from "vue-toastification";
+import "vue-toastification/dist/index.css";
 import { BASE_API_URL } from './config.js';
 import { useAuthStore } from './store/auth';
 import router from './router'
@@ -10,6 +11,13 @@ import router from './router'
 const app = createApp(App)
 
 app.use(createPinia());
+
+
+const options = {
+    position: POSITION.BOTTOM_CENTER,
+};
+
+app.use(Toast, options);
 
 const authStore = useAuthStore();
 
