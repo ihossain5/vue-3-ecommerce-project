@@ -1,8 +1,9 @@
 <script>
 import EyeSvg from '../components/EyeSvg.vue';
+import PasswordInput from '../components/PasswordInput.vue';
 
 export default {
-    components: { EyeSvg }
+    components: { EyeSvg, PasswordInput }
 }
 
 </script>
@@ -39,12 +40,7 @@ export default {
                     </div>
                     <div class="input_group">
                         <label class="input_label rf">Password</label>
-                        <div class="position-relative passowrd_field">
-                            <input type="password" name="password" class="input_field" placeholder="Password">
-                            <button type="button">
-                                <EyeSvg></EyeSvg>
-                            </button>
-                        </div>
+                        <PasswordInput></PasswordInput>
                     </div>
                     <div class="d-flex align-items-md-center gap-2">
                         <input type="checkbox" id="usePolicy">

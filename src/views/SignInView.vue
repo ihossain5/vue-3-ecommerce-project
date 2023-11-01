@@ -1,9 +1,10 @@
 
 <script>
 import EyeSvg from '../components/EyeSvg.vue';
-import { useAuthStore } from '@/store/auth'; 
+import { useAuthStore } from '@/store/auth';
 import { computed, ref } from 'vue';
 import router from '../router/index';
+import PasswordInput from '../components/PasswordInput.vue';
 
 
 export default {
@@ -11,10 +12,9 @@ export default {
         const authStore = useAuthStore();
         const mobile = ref('');
         const password = ref('');
-
-    const isSubmitDisabled = computed(() => {
-      return !mobile.value || !password.value;
-    });
+        const isSubmitDisabled = computed(() => {
+            return !mobile.value || !password.value;
+        });
 
         const handleLogin = async (e) => {
             e.preventDefault();
@@ -25,6 +25,8 @@ export default {
             }
         };
 
+    
+
         return {
             mobile,
             password,
@@ -32,7 +34,7 @@ export default {
             isSubmitDisabled
         };
     },
-    components: { EyeSvg }
+    components: { EyeSvg, PasswordInput }
 }
 
 </script>
@@ -52,17 +54,13 @@ export default {
                         </div>
                         <div class="input_group">
                             <label class="input_label rf">Password</label>
-                            <div class="position-relative passowrd_field">
-                                <input type="password" v-model="password" class="input_field" placeholder="Password">
-                                <button type="button">
-                                    <EyeSvg></EyeSvg>
-                                </button>
-                            </div>
+                            <PasswordInput v-model="password"></PasswordInput>
                         </div>
                         <a class="fs_17 lh_25 fc_black not_hover text-capitalize text-decoration-underline">Forgot
                             password?</a>
                         <div class="smy_4">
-                            <button type="submit" class="br_5 bg_red btnp_1228 tbg_3 hover w-100" :disabled="isSubmitDisabled" :style="{ opacity: isSubmitDisabled ? '0.5' : '1' }">
+                            <button type="submit" class="br_5 bg_red btnp_1228 tbg_3 hover w-100"
+                                :disabled="isSubmitDisabled" :style="{ opacity: isSubmitDisabled ? '0.5' : '1' }">
                                 <span class="fw_5 fs_14 lh_20 fc_white text-uppercase">Sign In</span>
                             </button>
                         </div>
