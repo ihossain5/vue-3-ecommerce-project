@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import OtpVerification from '../views/OtpVerificationView.vue'
 import AllBlogView from '../views/AllBlogView.vue'
 import SignIn from '../views/SignInView.vue'
 import SignUp from '../views/SignUpView.vue'
@@ -57,10 +58,11 @@ const router = createRouter({
       path: '/blogs',
       name: 'blog',
       component: AllBlogView
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      // component: () => import('../views/AboutView.vue')
+    },
+    {
+      path: '/otp-verification',
+      name: 'otpVerify',
+      component: OtpVerification
     }
   ],
   scrollBehavior(to, from, savedPosition) {
