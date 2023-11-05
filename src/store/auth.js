@@ -4,6 +4,7 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
 import { BASE_API_URL } from '../config';
+import router from '../router';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
@@ -42,15 +43,19 @@ export const useAuthStore = defineStore('auth', {
           },
       });
 
-       localStorage.setItem('user_id', response.data.resutls.user_id);
+        localStorage.setItem('user_id', response.data.resutls.user_id);
         
         this.user_id = response.data.resutls.user_id;
 
 
     } catch (error) {
-
-        const toast = useToast();
-        toast.error(error.response.data.errors); 
+        if(error.response.status == 503){
+          router.push('/otp-verification');
+        }else{
+          const toast = useToast();
+          toast.error(error.response.data.errors); 
+        }
+        
       }
     },
   },

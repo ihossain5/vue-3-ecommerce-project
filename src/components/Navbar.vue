@@ -18,8 +18,10 @@ export default {
       // Clear the token and any user-related data
       localStorage.removeItem('authToken');
       localStorage.removeItem('authUser');
+      localStorage.removeItem('user_id');
       authStore.user = null;
       authStore.token = null;
+      authStore.user_id = null;
       
       // Redirect to the login page
       router.push({ name: 'signIn' });
