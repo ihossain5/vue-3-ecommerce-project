@@ -1,3 +1,69 @@
+<script>
+import { ref } from 'vue';
+import EyeSvg from '../components/EyeSvg.vue';
+import PasswordInput from '../components/PasswordInput.vue';
+import axios from 'axios';
+import { BASE_API_URL } from '../config';
+import router from '../router';
+import { useToast } from 'vue-toastification';
+import { useAuthStore } from '../store/auth';
+
+export default {
+    setup() {
+        const imageSrc = ref('https://twowheelersbd.com/frontend/assets/images/user-avater.png');
+        const formData = ref({
+            name: '',
+            mobile: '',
+            email: '',
+            password: '',
+            agreeToTerms: false,
+        });
+
+        const previewImage = (event) => {
+            const file = event.target.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                    imageSrc.value = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            }
+        };
+
+        const registerUser = async () => {
+                const form = new FormData();
+                if (document.getElementById('acFileInp1').files.length > 0) {
+                    form.append('photo', document.getElementById('acFileInp1').files[0]);
+                }
+                form.append('name', formData.value.name);
+                form.append('mobile', formData.value.mobile);
+                form.append('email', formData.value.email);
+                form.append('password', formData.value.password);
+
+                const authStore = useAuthStore();
+
+                await authStore.register(form);
+
+                if (authStore.user_id) {
+                    router.push('/otp-verification');
+                }
+
+        };
+
+        return {
+            imageSrc,
+            formData,
+            previewImage,
+            registerUser,
+        };
+    },
+    components: { EyeSvg, PasswordInput },
+};
+</script>
+
 <template>
     <section class="spy">
         <div class="container-fluid container-xxxl">
@@ -59,74 +125,5 @@
     </section>
 </template>
   
-<script>
-import { ref } from 'vue';
-import EyeSvg from '../components/EyeSvg.vue';
-import PasswordInput from '../components/PasswordInput.vue';
-import axios from 'axios';
-import { BASE_API_URL } from '../config';
-import router from '../router';
-import { useToast } from 'vue-toastification';
 
-export default {
-    setup() {
-        const imageSrc = ref('https://twowheelersbd.com/frontend/assets/images/user-avater.png');
-        const formData = ref({
-            name: '',
-            mobile: '',
-            email: '',
-            password: '',
-            agreeToTerms: false,
-        });
-
-        const previewImage = (event) => {
-            const file = event.target.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-
-                reader.onload = (e) => {
-                    imageSrc.value = e.target.result;
-                };
-
-                reader.readAsDataURL(file);
-            }
-        };
-
-        const registerUser = async () => {
-            try {
-                const form = new FormData();
-                if (document.getElementById('acFileInp1').files.length > 0) {
-                    form.append('photo', document.getElementById('acFileInp1').files[0]);
-                }
-                form.append('name', formData.value.name);
-                form.append('mobile', formData.value.mobile);
-                form.append('email', formData.value.email);
-                form.append('password', formData.value.password);
-
-                const response = await axios.post(`${BASE_API_URL}/auth/register`, form, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
-
-                if (response.status === 200) {
-                    router.push('/otp-verification');
-                }
-            } catch (error) {
-                const toast = useToast();
-                toast.error(error.response.data.message.email); 
-            }
-        };
-
-        return {
-            imageSrc,
-            formData,
-            previewImage,
-            registerUser,
-        };
-    },
-    components: { EyeSvg, PasswordInput },
-};
-</script>
   

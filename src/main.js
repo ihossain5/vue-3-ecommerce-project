@@ -23,9 +23,14 @@ const authStore = useAuthStore();
 
 const authToken = localStorage.getItem('authToken');
 const authUser = localStorage.getItem('authUser');
+const user_id = localStorage.getItem('user_id');
 if (authToken) {
     authStore.token = authToken;
     authStore.user = JSON.parse(authUser);
+}
+
+if (user_id) {
+    authStore.user_id = user_id;
 }
 
 app.use(router)

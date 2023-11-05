@@ -3,11 +3,13 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import { useToast } from 'vue-toastification';
+import { BASE_API_URL } from '../config';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
     token: null,
+    user_id: null,
   }),
 
   actions: {
@@ -30,6 +32,25 @@ export const useAuthStore = defineStore('auth', {
     } catch (error) {
        const toast = useToast();
         toast.error(error.response.data.message); 
+      }
+    },    
+    async register(form) {
+      try {
+        const response = await axios.post(`${BASE_API_URL}/auth/register`, form, {
+          headers: {
+              'Content-Type': 'multipart/form-data',
+          },
+      });
+
+       localStorage.setItem('user_id', response.data.resutls.user_id);
+        
+        this.user_id = response.data.resutls.user_id;
+
+
+    } catch (error) {
+
+        const toast = useToast();
+        toast.error(error.response.data.errors); 
       }
     },
   },
