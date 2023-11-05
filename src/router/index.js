@@ -8,6 +8,7 @@ import AllBrands from '../views/AllBrandView.vue'
 import ProductView from '../views/AllProductView.vue'
 import AccessoriesView from '../views/AllAccessoriesView.vue'
 import { useAuthStore } from '../store/auth'
+import authGuard from '../authGuard'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,23 +27,13 @@ const router = createRouter({
       path: '/sign-in',
       name: 'signIn',
       component: SignIn,
-      beforeEnter: (to, from, next) => {
-        const authStore = useAuthStore();
-        
-        // Check if the user is authenticated
-        if (authStore.token) {
-          // Redirect the user to another page, e.g., the home page
-          next({ name: 'home' });
-        } else {
-          // Continue to the login page
-          next();
-        }
-      },
+      beforeEnter: authGuard
     },    
     {
       path: '/sign-up',
       name: 'SignUp',
-      component: SignUp
+      component: SignUp,
+      beforeEnter: authGuard
     },    
     {
       path: '/all-products',
@@ -62,7 +53,8 @@ const router = createRouter({
     {
       path: '/otp-verification',
       name: 'otpVerify',
-      component: OtpVerification
+      component: OtpVerification,
+      beforeEnter: authGuard
     }
   ],
   scrollBehavior(to, from, savedPosition) {
