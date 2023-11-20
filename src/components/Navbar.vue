@@ -6,8 +6,10 @@ import "bootstrap"
 import { BASE_API_URL } from '../config.js';
 import { useAuthStore } from '../store/auth';
 import router from '../router/index';
+import Search from './Search.vue';
 
 export default {
+  components: { Search },
   setup() {
     const loading = ref(true); 
     const categories = ref({});
@@ -80,83 +82,9 @@ export default {
                             </button>
                         </div>
                     </div>
-                    <div class="col-md-4 col-lg-6">
-                        <div class="offcanvas offcanvas-top offcanvas_search" tabindex="-1" id="offcanvasSearch"
-                            aria-labelledby="offcanvasSearchLabel">
-                            <div class="offcanvas-header">
-                                <div></div>
-                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="offcanvas-body">
-                                <div class="position-relative">
-                                    <form action="#">
-                                        <div class="input-group">
-                                            <input type="text" class="form-control fs_14 fc_black"
-                                                placeholder="Search Here..." aria-label="Search Here..."
-                                                aria-describedby="header-search">
-                                            <span
-                                                class="input-group-text bg_red br_5 fw_5 fs_14 fc_white border-0 text-uppercase tbg_3 hover"
-                                                id="header-search">search</span>
-                                        </div>
-                                    </form>
-                                    <div class="search_result position-absolute d-none">
-                                        <div class="">
-                                            <a href="#" class="d-flex align-items-center gap-2 mb-3">
-                                                <img src="./assets/images/sr-img.png" alt="thumb">
-                                                <p class="fs_14 lh_20 fc_gd">Rubber Step Floor New Vario 125 K60R &
-                                                    150 eSP
-                                                    K59J
-                                                </p>
-                                            </a>
-                                            <a href="#" class="d-flex align-items-center gap-2 mb-3">
-                                                <img src="./assets/images/sr-img.png" alt="thumb">
-                                                <p class="fs_14 lh_20 fc_gd">Rubber Step Floor New Vario 125 K60R &
-                                                    150 eSP
-                                                    K59J
-                                                </p>
-                                            </a>
-                                            <a href="#" class="d-flex align-items-center gap-2 mb-3">
-                                                <img src="./assets/images/sr-img.png" alt="thumb">
-                                                <p class="fs_14 lh_20 fc_gd">Rubber Step Floor New Vario 125 K60R &
-                                                    150 eSP
-                                                    K59J
-                                                </p>
-                                            </a>
-                                            <a href="#" class="d-flex align-items-center gap-2 mb-3">
-                                                <img src="./assets/images/sr-img.png" alt="thumb">
-                                                <p class="fs_14 lh_20 fc_gd">Rubber Step Floor New Vario 125 K60R &
-                                                    150 eSP
-                                                    K59J
-                                                </p>
-                                            </a>
-                                            <a href="#" class="d-flex align-items-center gap-2 mb-3">
-                                                <img src="./assets/images/sr-img.png" alt="thumb">
-                                                <p class="fs_14 lh_20 fc_gd">Rubber Step Floor New Vario 125 K60R &
-                                                    150 eSP
-                                                    K59J
-                                                </p>
-                                            </a>
-                                            <div class="">
-                                                <a href="search-result.html"
-                                                    class="sr_btn d-flex justify-content-center align-item-center gap-1">
-                                                    <span class="fw_5 fs_14 lh_20 fc_red text-uppercase">View all 50
-                                                        Products</span>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                                        viewBox="0 0 20 20" fill="none">
-                                                        <path d="M5 12H19" stroke="#DD1E1E" stroke-width="1.5"
-                                                            stroke-linecap="round" stroke-linejoin="round" />
-                                                        <path d="M12 5L19 12L12 19" stroke="#DD1E1E" stroke-width="1.5"
-                                                            stroke-linecap="round" stroke-linejoin="round" />
-                                                    </svg>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+                  <search></search>
+                    
                     <div class="col-md-4 col-lg-3 d-none d-md-block">
                         <div class="d-flex justify-content-end align-items-center meta_controls">
                             <div class="text-start">
