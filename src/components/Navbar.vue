@@ -1,5 +1,5 @@
 <script>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, computed } from 'vue';
 import axios from 'axios';
 import "bootstrap"
 
@@ -7,6 +7,7 @@ import { BASE_API_URL } from '../config.js';
 import { useAuthStore } from '../store/auth';
 import router from '../router/index';
 import Search from './Search.vue';
+import { useCartStore } from '../store/cart.js';
 
 export default {
   components: { Search },
@@ -14,7 +15,11 @@ export default {
     const loading = ref(true); 
     const categories = ref({});
     const filteredData = ref([]);
+   
     const authStore = useAuthStore();
+    const cartStore = useCartStore();
+    const totalCartItems = computed(() => cartStore.totalItems);
+    
 
     const logout = () => {
       // Clear the token and any user-related data
@@ -50,7 +55,8 @@ export default {
       categories,
       filteredData,
       authStore,
-      logout
+      logout,
+      totalCartItems
     };
   },
 }
@@ -189,7 +195,7 @@ export default {
                                 <span
                                     class="position-absolute rounded-circle d-flex justify-content-center align-items-center bg_white bxy_gl  fs_14 lh_20 fc_black">0</span>
                             </a>
-                            <a href="cart.html"
+                            <router-link to="/cart"
                                 class="badge_btn position-relative bg_red rounded-circle d-flex justify-content-center align-items-center fs_20">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none">
@@ -204,8 +210,8 @@ export default {
                                         stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                                 <span
-                                    class="position-absolute rounded-circle d-flex justify-content-center align-items-center bg_white bxy_gl  fs_14 lh_20 fc_black">0</span>
-                            </a>
+                                    class="position-absolute rounded-circle d-flex justify-content-center align-items-center bg_white bxy_gl  fs_14 lh_20 fc_black">{{ totalCartItems }}</span>
+                            </router-link>
                         </div>
                     </div>
                 </div>

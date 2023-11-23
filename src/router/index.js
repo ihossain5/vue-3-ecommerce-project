@@ -9,7 +9,7 @@ import ProductView from '../views/AllProductView.vue'
 import AccessoriesView from '../views/AllAccessoriesView.vue'
 import ForgotPassword from '../views/ForgotPasswordView.vue'
 import RecoverPassword from '../views/RecoverPasswordView.vue'
-import { useAuthStore } from '../store/auth'
+import CartView from '../views/CartView.vue'
 import authGuard from '../authGuard'
 
 const router = createRouter({
@@ -66,6 +66,11 @@ const router = createRouter({
       path: '/blogs',
       name: 'blog',
       component: AllBlogView
+    },    
+    {
+      path: '/cart',
+      name: 'cart',
+      component: CartView
     },
     {
       path: '/otp-verification/:url', // Use a dynamic segment in the path
