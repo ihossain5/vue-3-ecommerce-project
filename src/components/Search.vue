@@ -57,7 +57,7 @@
 import { ref, watch } from 'vue';
 import axios from 'axios';
 import { BASE_API_URL } from '../config';
-
+import _ from 'lodash';
 
 export default {
     setup() {
@@ -65,6 +65,11 @@ export default {
         const searchResults = ref([]);
         const notfound = ref(false);
         const totalProducts = ref(0);
+
+           // Debounce the search function to avoid rapid API requests
+           const debouncedSearch = _.debounce(async () => {
+            await fetchSearchResults(searchQuery.value);
+        }, 300); // Adjust the debounce delay as needed
 
 
         const fetchSearchResults = async (search) => {
@@ -95,8 +100,8 @@ export default {
         };
 
         const search = async () => {
-            // Call the API to fetch search results based on the current search query
-            await fetchSearchResults(searchQuery.value);
+            // await fetchSearchResults(searchQuery.value);
+            debouncedSearch();
         };
 
         // Watch for changes in searchQuery and trigger the search function

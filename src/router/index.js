@@ -7,6 +7,7 @@ import SignUp from '../views/SignUpView.vue'
 import AllBrands from '../views/AllBrandView.vue'
 import ProductView from '../views/AllProductView.vue'
 import AccessoriesView from '../views/AllAccessoriesView.vue'
+import ForgotPassword from '../views/ForgotPasswordView.vue'
 import { useAuthStore } from '../store/auth'
 import authGuard from '../authGuard'
 
@@ -35,6 +36,12 @@ const router = createRouter({
       component: SignUp,
       beforeEnter: authGuard
     },    
+     {
+      path: '/forgot-password',
+      name: 'ForgotPassword',
+      component: ForgotPassword,
+      beforeEnter: authGuard
+    },    
     {
       path: '/all-products',
       name: 'products',
@@ -51,9 +58,14 @@ const router = createRouter({
       component: AllBlogView
     },
     {
-      path: '/otp-verification',
+      path: '/otp-verification/:url', // Use a dynamic segment in the path
       name: 'otpVerify',
       component: OtpVerification,
+      props: route => ({
+        url: route.params.url,
+        mobile: route.query.mobile,
+        user_id: route.query.user_id,
+      }),
       beforeEnter: authGuard
     }
   ],

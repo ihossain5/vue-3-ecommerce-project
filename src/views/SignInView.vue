@@ -21,10 +21,9 @@ export default {
             await authStore.login(mobile.value, password.value);
 
             if (authStore.user && authStore.token) {
-                router.back(); // This will navigate back to the previous page
+                router.back(); 
             }
         };
-
 
 
         return {
@@ -56,8 +55,8 @@ export default {
                             <label class="input_label rf">Password</label>
                             <PasswordInput v-model="password"></PasswordInput>
                         </div>
-                        <a class="fs_17 lh_25 fc_black not_hover text-capitalize text-decoration-underline">Forgot
-                            password?</a>
+                        <router-link to="/forgot-password" class="fs_17 lh_25 fc_black not_hover text-capitalize text-decoration-underline">Forgot
+                            password?</router-link>
                         <div class="smy_4">
                             <button type="submit" class="br_5 bg_red btnp_1228 tbg_3 hover w-100"
                                 :disabled="isSubmitDisabled" :style="{ opacity: isSubmitDisabled ? '0.5' : '1' }">

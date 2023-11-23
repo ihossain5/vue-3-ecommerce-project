@@ -7,7 +7,13 @@ import { useToast } from 'vue-toastification';
 import router from '../router';
 
 export default {
-  setup() {
+props: {
+  url: String,
+  mobile: String,
+  user_id: String,
+},
+
+  setup(props) {
     const otpInputs = ref(["", "", "", ""]);
 
     const handleInput = (index, event) => {
@@ -67,7 +73,7 @@ export default {
       const authStore = useAuthStore();
       const otpValue = otpInputs.value.join("");
       try {
-        const response = await axios.post(`${BASE_API_URL}/auth/register-verify-otp`, { otp: otpValue, id: authStore.user_id });
+        const response = await axios.post(`${BASE_API_URL}/auth/${props.url}`, { otp: otpValue, id: props.user_id , mobile:props.mobile });
 
         localStorage.setItem('authToken', response.data.resutls.access_token);
         localStorage.setItem('authUser', JSON.stringify(response.data.resutls));
