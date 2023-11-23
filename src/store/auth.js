@@ -18,43 +18,68 @@ export const useAuthStore = defineStore('auth', {
       try {
         let device_id = 123655474;
         const response = await axios.post('https://api.twowheelersbd.com/api/auth/login', {
-            mobile,
+          mobile,
           password,
           device_id,
         });
 
         localStorage.setItem('authToken', response.data.resutls.access_token);
         localStorage.setItem('authUser', JSON.stringify(response.data.resutls));
-        
+
         this.user = response.data.resutls;
         this.token = response.data.resutls.access_token;
 
 
-    } catch (error) {
-       const toast = useToast();
-        toast.error(error.response.data.message); 
+      } catch (error) {
+        const toast = useToast();
+        toast.error(error.response.data.message);
       }
-    },    
+    },
+
     async register(form) {
       try {
         const response = await axios.post(`${BASE_API_URL}/auth/register`, form, {
           headers: {
-              'Content-Type': 'multipart/form-data',
+            'Content-Type': 'multipart/form-data',
           },
-      });
+        });
 
         localStorage.setItem('user_id', response.data.resutls.user_id);
-        
+
         this.user_id = response.data.resutls.user_id;
 
 
-    } catch (error) {
-        if(error.response.status == 503){
+      } catch (error) {
+        if (error.response.status == 503) {
           router.push('/otp-verification');
-        }else{
+        } else {
           const toast = useToast();
-          toast.error(error.response.data.errors); 
+          toast.error(error.response.data.errors);
         }
+
+      }
+    },
+
+    async recoverPassword({ password, password_confirmation, user_id }) {
+      try {
+        let device_id = 123655474;
+        const response = await axios.post(`${BASE_API_URL}/auth/recover-password`, {
+          password,
+          password_confirmation,
+          id: user_id,
+          device_id: device_id,
+        });
+
+        localStorage.setItem('authToken', response.data.resutls.access_token);
+        localStorage.setItem('authUser', JSON.stringify(response.data.resutls));
+
+        this.user = response.data.resutls;
+        this.token = response.data.resutls.access_token;
+
+
+      } catch (error) {
+          const toast = useToast();
+          toast.error(error.response.data.errors);
         
       }
     },

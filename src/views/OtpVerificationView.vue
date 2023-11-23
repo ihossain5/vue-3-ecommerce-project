@@ -7,11 +7,11 @@ import { useToast } from 'vue-toastification';
 import router from '../router';
 
 export default {
-props: {
-  url: String,
-  mobile: String,
-  user_id: String,
-},
+  props: {
+    url: String,
+    mobile: String,
+    user_id: String,
+  },
 
   setup(props) {
     const otpInputs = ref(["", "", "", ""]);
@@ -37,7 +37,7 @@ props: {
         moveCursorToNextInput(index);
       } else if ((event.key === 'Backspace' || event.key === 'Delete') && index > 0 && otpInputs.value[index] === "") {
         moveCursorToPreviousInput(index);
-      }else if (event.key === 'Enter' && isOtpFilled.value) {
+      } else if (event.key === 'Enter' && isOtpFilled.value) {
         verifyOtp();
       }
     };
@@ -73,19 +73,28 @@ props: {
       const authStore = useAuthStore();
       const otpValue = otpInputs.value.join("");
       try {
-        const response = await axios.post(`${BASE_API_URL}/auth/${props.url}`, { otp: otpValue, id: props.user_id , mobile:props.mobile });
+        const response = await axios.post(`${BASE_API_URL}/auth/${props.url}`, { otp: otpValue, id: props.user_id, mobile: props.mobile });
 
-        localStorage.setItem('authToken', response.data.resutls.access_token);
-        localStorage.setItem('authUser', JSON.stringify(response.data.resutls));
+        if (response.data.resutls && typeof response.data.resutls === "object" && "message" in response.data.resutls && "user_id" in response.data.resutls) {
+          router.push({
+            name: 'RecoverPassword',
+            params: { user_id: response.data.resutls.user_id },
+          });
 
-        authStore.token = response.data.resutls.access_token
-        authStore.user = response.data.resutls
+        } else {
+          localStorage.setItem('authToken', response.data.resutls.access_token);
+          localStorage.setItem('authUser', JSON.stringify(response.data.resutls));
 
-        router.push('/');
+          authStore.token = response.data.resutls.access_token
+          authStore.user = response.data.resutls
+
+          router.push('/');
+        }
+
 
       } catch (error) {
         const toast = useToast();
-        toast.error(error.response.data.errors); 
+        toast.error(error.response.data.errors);
       }
     };
 

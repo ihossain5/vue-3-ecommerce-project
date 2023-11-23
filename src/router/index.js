@@ -8,6 +8,7 @@ import AllBrands from '../views/AllBrandView.vue'
 import ProductView from '../views/AllProductView.vue'
 import AccessoriesView from '../views/AllAccessoriesView.vue'
 import ForgotPassword from '../views/ForgotPasswordView.vue'
+import RecoverPassword from '../views/RecoverPasswordView.vue'
 import { useAuthStore } from '../store/auth'
 import authGuard from '../authGuard'
 
@@ -41,6 +42,15 @@ const router = createRouter({
       name: 'ForgotPassword',
       component: ForgotPassword,
       beforeEnter: authGuard
+    },        
+    {
+      path: '/recover-password/:user_id',
+      name: 'RecoverPassword',
+      component: RecoverPassword,
+      props: route => ({
+        user_id: route.params.user_id,
+      }),
+      // beforeEnter: authGuard
     },    
     {
       path: '/all-products',
