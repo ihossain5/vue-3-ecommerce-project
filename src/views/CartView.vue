@@ -5,18 +5,27 @@ export default {
  setup(){
     const cartStore = useCartStore();
     const cartItems = computed(() => cartStore.getAllItems());
+    const subtotal = computed(() => cartStore.totalCartPrice);
 
     const clearCart = () => {
       cartStore.clearCart();
     };
 
     const removeItem = (item) => {
-      console.log(item);
-      cartStore.removeFromCart(11, item);
+      cartStore.removeFromCart(item.shop_id, item);
+    };
+
+    const increaseQuantity = (shop_id, item_id) => {
+        
+      cartStore.increaseQuantity(shop_id, item_id);
+    };    
+    
+    const decreaseQuantity = (shop_id, item_id) => {
+        cartStore.decreaseQuantity(shop_id, item_id);
     };
 
     return {
-      cartItems, clearCart ,removeItem
+      cartItems, clearCart ,removeItem, decreaseQuantity, increaseQuantity, subtotal
     };
 }   
 }
@@ -73,7 +82,7 @@ export default {
                             <td colspan="5">
                                 <div class="d-grid align-items-start align-items-md-center">
                                     <div class="grid_item">
-                                        <input type="checkbox" class="input_check input_child">
+                                        <!-- <input type="checkbox" class="input_check input_child"> -->
                                     </div>
                                     <div class="grid_item">
                                         <div class="img_box bg_e5">
@@ -96,14 +105,14 @@ export default {
                             <td>
                                 <div class="quantity_2 d-inline-block">
                                     <div class="d-grid br_5 bxy_gl svg_28">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" @click="decreaseQuantity(item.shop_id, item.product_id)"
                                             viewBox="0 0 28 28" fill="none">
                                             <path
                                                 d="M22.1081 12.8667H6.25265C5.95228 12.8667 5.66422 12.986 5.45183 13.1984C5.23944 13.4108 5.12012 13.6989 5.12012 13.9992C5.12012 14.2996 5.23944 14.5877 5.45183 14.8C5.66422 15.0124 5.95228 15.1318 6.25265 15.1318H22.1081C22.4084 15.1318 22.6965 15.0124 22.9089 14.8C23.1213 14.5877 23.2406 14.2996 23.2406 13.9992C23.2406 13.6989 23.1213 13.4108 22.9089 13.1984C22.6965 12.986 22.4084 12.8667 22.1081 12.8667Z"
                                                 fill="#999999" />
                                         </svg>
                                         <span class="fw_5 fs_17">{{ item.quantity }}</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" @click="increaseQuantity(item.shop_id, item.product_id)"
                                             viewBox="0 0 28 28" fill="none">
                                             <path
                                                 d="M14.9531 21.9279L14.9531 15.1327L21.7483 15.1327C22.0487 15.1327 22.3368 15.0134 22.5491 14.801C22.7615 14.5886 22.8809 14.3005 22.8809 14.0002C22.8809 13.6998 22.7615 13.4118 22.5491 13.1994C22.3368 12.987 22.0487 12.8677 21.7483 12.8677L14.9531 12.8677L14.9531 6.07247C14.9531 5.7721 14.8338 5.48404 14.6214 5.27165C14.409 5.05926 14.121 4.93994 13.8206 4.93994C13.5203 4.93994 13.2322 5.05926 13.0198 5.27165C12.8074 5.48404 12.6881 5.7721 12.6881 6.07247L12.6881 12.8677L5.89291 12.8677C5.59254 12.8677 5.30448 12.987 5.09209 13.1994C4.8797 13.4118 4.76038 13.6998 4.76038 14.0002C4.76038 14.3005 4.8797 14.5886 5.09209 14.801C5.30448 15.0134 5.59254 15.1327 5.89291 15.1327L12.6881 15.1327L12.6881 21.9279C12.6881 22.2283 12.8074 22.5163 13.0198 22.7287C13.2322 22.9411 13.5203 23.0604 13.8206 23.0604C14.121 23.0604 14.409 22.9411 14.6214 22.7287C14.8338 22.5163 14.9531 22.2283 14.9531 21.9279Z"
@@ -140,7 +149,7 @@ export default {
                 </table>
             </div>
 
-            <!-- <div class="pt-4 mt-0 mt-md-3">
+          <div class="pt-4 mt-0 mt-md-3">
                 <div class="row row-cols-md-2 gy-4">
                     <div class="row_item">
                     </div>
@@ -150,7 +159,7 @@ export default {
                                 <tbody>
                                     <tr>
                                         <td class="fs_17 lh_25 text-uppercase">SUb-Total</td>
-                                        <td class="fs_17 lh_25 text-end">BDT 10,340.00</td>
+                                        <td class="fs_17 lh_25 text-end">BDT {{subtotal}}</td>
                                     </tr>
                                     <tr>
                                         <td class="fs_17 lh_25 text-uppercase">delivery fee</td>
@@ -174,7 +183,7 @@ export default {
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
     </section>
 </template>

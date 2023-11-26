@@ -3,6 +3,7 @@ import { onUnmounted, onMounted, ref, computed } from 'vue'
 import axios from 'axios';
 import LoadingPlaceholder from './LoadingPlaceholder.vue';
 import { useCartStore } from '../store/cart';
+import { useToast } from 'vue-toastification';
 export default {
     props: {
         baseUlr: String, // Define the prop and its type
@@ -91,6 +92,7 @@ export default {
         const addToCart = (product) => {
             const cartItem = {
                 product_id: product.id,
+                shop_id: product.shop_id,
                 name: product.name,
                 image: product.images[0],
                 price: product.discounted_price,
@@ -98,9 +100,12 @@ export default {
                 total_price: product.discounted_price, 
             };
 
-            const shopId = '11'; 
+            const shopId = product.shop_id; 
 
             cart.addToCart(shopId, cartItem);
+
+         const toast = useToast();
+          toast.success('Items has added into your cart');
         }
 
 

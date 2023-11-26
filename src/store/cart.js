@@ -10,6 +10,11 @@ export const useCartStore = defineStore('cart', {
       return Object.values(this.shops)
         .reduce((total, shop) => total + Object.values(shop).length, 0);
     },
+    totalCartPrice: (state) => {
+      return Object.values(state.shops)
+        .flatMap((items) => Object.values(items))
+        .reduce((total, item) => total + parseInt(item.total_price), 0);
+    },
   },
   actions: {
     addToCart(shopId, item) {
@@ -22,7 +27,7 @@ export const useCartStore = defineStore('cart', {
       );
 
       if (existingItem) {
-        existingItem.quantity = (parseInt(existingItem.quantity) || 1) + 1;
+        existingItem.quantity = (parseInt(existingItem.quantity)) + 1;
         existingItem.total_price = (
           parseInt(existingItem.quantity) * parseInt(existingItem.price)
         ).toString();
@@ -30,8 +35,9 @@ export const useCartStore = defineStore('cart', {
 
         const itemId = Object.keys(this.shops[shopId]).length + 1;
 
-        this.shops[shopId][itemId] = {
+        this.shops[shopId][item.product_id] = {
           product_id: item.product_id,
+          shop_id: item.shop_id,
           name: item.name,
           image: item.image,
           price: item.price,
@@ -62,6 +68,37 @@ export const useCartStore = defineStore('cart', {
       this.shops = {};
       this.saveToLocalStorage();
     },
+
+    increaseQuantity(shopId, itemId) {
+      console.log(shopId, itemId);
+      // Increase quantity logic
+      if (this.shops[shopId] && this.shops[shopId][itemId]) {
+       
+        const item = this.shops[shopId][itemId];
+        item.quantity = (parseInt(item.quantity)) + 1;
+        item.total_price = (
+          parseInt(item.quantity) * parseInt(item.price)
+        ).toString();
+
+        this.saveToLocalStorage();
+      }
+    },
+
+    decreaseQuantity(shopId, itemId) {
+      // Decrease quantity logic
+      if (this.shops[shopId] && this.shops[shopId][itemId]) {
+        const item = this.shops[shopId][itemId];
+        if (parseInt(item.quantity) > 1) {
+          item.quantity = parseInt(item.quantity) - 1;
+          item.total_price = (
+            parseInt(item.quantity) * parseInt(item.price)
+          ).toString();
+
+          this.saveToLocalStorage();
+        }
+      }
+    },
+
     saveToLocalStorage() {
         localStorage.setItem('cart_shops', JSON.stringify(this.shops));
       },
