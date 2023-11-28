@@ -10,7 +10,10 @@ import AccessoriesView from '../views/AllAccessoriesView.vue'
 import ForgotPassword from '../views/ForgotPasswordView.vue'
 import RecoverPassword from '../views/RecoverPasswordView.vue'
 import CartView from '../views/CartView.vue'
+import CheckoutView from '../views/CheckoutView.vue'
+import OrderConfirmView from '../views/OrderConfirmView.vue'
 import authGuard from '../authGuard'
+import checkoutGuard from '../checkoutGuard'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -71,6 +74,18 @@ const router = createRouter({
       path: '/cart',
       name: 'cart',
       component: CartView
+    },   
+     {
+      path: '/checkout',
+      name: 'checkout',
+      component: CheckoutView,
+      beforeEnter: checkoutGuard
+    },     
+    {
+      path: '/order-placed',
+      name: 'orderPlaced',
+      component: OrderConfirmView,
+      beforeEnter: checkoutGuard
     },
     {
       path: '/otp-verification/:url', // Use a dynamic segment in the path

@@ -1,11 +1,13 @@
 <script>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useCartStore } from '../store/cart'
 export default {
  setup(){
     const cartStore = useCartStore();
     const cartItems = computed(() => cartStore.getAllItems());
     const subtotal = computed(() => cartStore.totalCartPrice);
+    const delivery_charge =cartStore.deliveryCharge;
+    const total =  computed(() =>  delivery_charge + subtotal.value);
 
     const clearCart = () => {
       cartStore.clearCart();
@@ -25,7 +27,7 @@ export default {
     };
 
     return {
-      cartItems, clearCart ,removeItem, decreaseQuantity, increaseQuantity, subtotal
+      cartItems, clearCart ,removeItem, decreaseQuantity, increaseQuantity, subtotal, delivery_charge, total
     };
 }   
 }
@@ -163,18 +165,18 @@ export default {
                                     </tr>
                                     <tr>
                                         <td class="fs_17 lh_25 text-uppercase">delivery fee</td>
-                                        <td class="fs_17 lh_25 text-end">BDT 70.00</td>
+                                        <td class="fs_17 lh_25 text-end">BDT {{ delivery_charge }}</td>
                                     </tr>
                                     <tr>
                                         <td class="fw_5 fs_17 lh_25 text-uppercase">Grand Total</td>
-                                        <td class="fw_5 fs_17 lh_25 text-end">BDT 10,410.00</td>
+                                        <td class="fw_5 fs_17 lh_25 text-end">BDT {{ total }}</td>
                                     </tr>
                                 </tbody>
                             </table>
                             <div class="text-end">
-                                <a href="checkout.html" class="d-inline-block br_5 bg_red btnp_1228 tbg_3 hover">
+                                <router-link to="/checkout" class="d-inline-block br_5 bg_red btnp_1228 tbg_3 hover">
                                     <span class="fw_5 fs_14 lh_20 fc_white text-uppercase"> Proceed to Checkout</span>
-                                </a>
+                                </router-link>
                             </div>
                         </div>
                         <div class="text-center d-md-none mt-4">

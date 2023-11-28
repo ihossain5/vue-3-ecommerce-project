@@ -5,6 +5,7 @@ export const useCartStore = defineStore('cart', {
   state: () => ({
     shops: JSON.parse(localStorage.getItem('cart_shops')) || {},
   }),
+
   getters: {
     totalItems() {
       return Object.values(this.shops)
@@ -14,7 +15,11 @@ export const useCartStore = defineStore('cart', {
       return Object.values(state.shops)
         .flatMap((items) => Object.values(items))
         .reduce((total, item) => total + parseInt(item.total_price), 0);
-    },
+    },    
+    
+    deliveryCharge: () => {
+      return 70;
+    },    
   },
   actions: {
     addToCart(shopId, item) {
