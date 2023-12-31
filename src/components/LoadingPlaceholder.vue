@@ -1,9 +1,9 @@
 <script>
-import { computed } from 'vue';
+import { computed } from "vue";
 
 export default {
   setup() {
-    const divCount = computed(() => 5); 
+    const divCount = computed(() => 5);
 
     return {
       divCount,
@@ -13,179 +13,67 @@ export default {
 </script>
 
 <template>
-    <div class="skeleton m-2" v-for="index in divCount" :key="index">
-            <div class="skeleton-left">
-              <div class="line h17 w40 m10"></div>
-              <div class="line"></div>
-              <div class="line h8 w50"></div>
-              <div class="line  w75"></div>
-              <div class="line h17 w40 m10"></div>
-              <div class="line"></div>
-              <div class="line h8 w50"></div>
-              <div class="line  w75"></div>
-              <div class="line h17 w40 m10"></div>
-              <div class="line"></div>
-              <div class="line h8 w50"></div>
-              <div class="line  w75"></div>
-              <div class="line h17 w40 m10"></div>
-              <div class="line"></div>
-              <div class="line h8 w50"></div>
-              <div class="line  w75"></div>
-            </div>
-          </div>
+ <div class="loader-skeleton" v-for="count in divCount" :key="count">
+    <!-- Loader skeleton structure -->
+    <div class="position-relative overflow-hidden prd_card br_5 bxy_gl bs_15 tbs_tb_3 hover">
+      <div class="position-relative d-flex justify-content-center align-items-center img_box">
+        <div class="skeleton-img"></div>
+      </div>
+      <div class="content text-center">
+        <div class="skeleton-title"></div>
+        <div class="rate_wrapper">
+          <div class="skeleton-rating"></div>
+        </div>
+        <div class="d-flex justify-content-center align-items-center gap-2 gap-md-4 pt-0 pt-md-3 fs_18 lh_22 fc_black">
+          <div class="skeleton-price"></div>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #f0f0f0;
-}
-
-.container {
-  height: 100vh;
-  display: flex;
-  flex-flow: wrap row;
-  justify-content: center;
-  align-items: center;
-}
-
-.box {
-  max-width: 300px;
-  width: 100%;
-  padding: 0 15px;
-}
-
-.skeleton {
-  padding: 15px;
-  max-width: 300px;
-  width: 100%;
-  background: #fff;
+.loader-skeleton {
   margin-bottom: 20px;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, .14), 0 3px 3px -2px rgba(0, 0, 0, .2), 0 1px 8px 0 rgba(0, 0, 0, .12);
-  height: 380px;
 }
 
-.skeleton .square {
-  height: 80px;
-  border-radius: 5px;
-  background: rgba(130, 130, 130, 0.2);
-  background: -webkit-gradient(linear, left top, right top, color-stop(8%, rgba(130, 130, 130, 0.2)), color-stop(18%, rgba(130, 130, 130, 0.3)), color-stop(33%, rgba(130, 130, 130, 0.2)));
-  background: linear-gradient(to right, rgba(130, 130, 130, 0.2) 8%, rgba(130, 130, 130, 0.3) 18%, rgba(130, 130, 130, 0.2) 33%);
-  background-size: 800px 100px;
-  animation: wave-squares 2s infinite ease-out;
+@keyframes loadingAnimation {
+  0%, 100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
-.skeleton .line {
-  height: 12px;
-  margin-bottom: 6px;
-  border-radius: 2px;
-  background: rgba(130, 130, 130, 0.2);
-  background: -webkit-gradient(linear, left top, right top, color-stop(8%, rgba(130, 130, 130, 0.2)), color-stop(18%, rgba(130, 130, 130, 0.3)), color-stop(33%, rgba(130, 130, 130, 0.2)));
-  background: linear-gradient(to right, rgba(130, 130, 130, 0.2) 8%, rgba(130, 130, 130, 0.3) 18%, rgba(130, 130, 130, 0.2) 33%);
-  background-size: 800px 100px;
-  animation: wave-lines 2s infinite ease-out;
+.skeleton-img {
+  width: 100%;
+  height: 200px; /* Adjust the height as needed */
+  background-color: #f0f0f0;
 }
 
-.skeleton-right {
+.skeleton-content {
+  padding: 20px;
   flex: 1;
 }
 
-.skeleton-left {
-  flex: 2;
-  padding-right: 15px;
+.skeleton-title {
+  width: 80%;
+  height: 20px;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
 }
 
-.flex1 {
-  flex: 1;
+.skeleton-rating {
+  width: 40px;
+  height: 10px;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
 }
 
-.flex2 {
-  flex: 2;
-}
-
-.skeleton .line:last-child {
-  margin-bottom: 0;
-}
-
-.h8 {
-  height: 8px !important;
-}
-
-.h10 {
-  height: 10px !important;
-}
-
-.h12 {
-  height: 12px !important;
-}
-
-.h15 {
-  height: 15px !important;
-}
-
-.h17 {
-  height: 17px !important;
-}
-
-.h20 {
-  height: 20px !important;
-}
-
-.h25 {
-  height: 25px !important;
-}
-
-.w25 {
-  width: 25% !important
-}
-
-.w40 {
-  width: 40% !important;
-}
-
-.w50 {
-  width: 50% !important
-}
-
-.w75 {
-  width: 75% !important
-}
-
-.m10 {
-  margin-bottom: 10px !important;
-}
-
-.circle {
-  border-radius: 50% !important;
-  height: 80px !important;
-  width: 80px;
-}
-
-@keyframes wave-lines {
-  0% {
-    background-position: -468px 0;
-  }
-
-  100% {
-    background-position: 468px 0;
-  }
-}
-
-@keyframes wave-squares {
-  0% {
-    background-position: -468px 0;
-  }
-
-  100% {
-    background-position: 468px 0;
-  }
+.skeleton-price {
+  width: 30%;
+  height: 20px;
+  background-color: #f0f0f0;
 }
 </style>

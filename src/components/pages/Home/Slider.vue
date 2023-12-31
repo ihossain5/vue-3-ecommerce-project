@@ -1,11 +1,11 @@
 <script>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
-
 import { BASE_API_URL } from '../../../config.js';
 
 
 export default {
+
   setup() {
     const loading = ref(true); 
     const categories = ref({});
@@ -25,7 +25,6 @@ export default {
           });
       }); // 2-second delay
     });
-
 
     return {
       loading,
@@ -81,7 +80,7 @@ export default {
           <div class="category_slider br_5 overflow-hidden">
             <div class="owl-carousel owl-theme">
               <div class="item">
-                <img src="./assets/images/cs-img-1.png" alt="slider-images">
+                <img src="https://twowheelersbd.com/admin/images/slider/1784285435289389.jpg" alt="slider-images">
               </div>
             </div>
           </div>

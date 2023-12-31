@@ -23,7 +23,7 @@ export default {
                 </svg>
                 <span>Home</span>
             </a>
-            <a href="categories.html" class="">
+            <a href="#" class="">
                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="none">
                     <path d="M10.5 3H3.5V10H10.5V3Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
                         stroke-linejoin="round" />
@@ -47,7 +47,7 @@ export default {
                 </svg>
                 <span>Live Chat</span>
             </a>
-            <a href="cart.html" class="">
+            <a href="#" class="">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M9 22C9.55228 22 10 21.5523 10 21C10 20.4477 9.55228 20 9 20C8.44772 20 8 20.4477 8 21C8 21.5523 8.44772 22 9 22Z"
@@ -61,7 +61,7 @@ export default {
                 </svg>
                 <span>Cart (0)</span>
             </a>
-            <a href="my-profile-info.html" class="">
+            <a href="#" class="">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                     <path
                         d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21"
@@ -82,7 +82,7 @@ export default {
             <div class="row g-4 g-md-5">
                 <div class="col-sm-6 col-md-4 col-lg-3">
                     <div class="logo_wrapper mb-4">
-                        <img src="./assets/images/footer-logo.svg" alt="logo" class="w-100">
+                        <img src="https://twowheelersbd.com/frontend/assets/images/footer-logo.svg" alt="logo" class="w-100">
                     </div>
                     <p class="mb-4 fs_15 lh_22 fc_white">Lorem Ipsum is simply dummy text of the printing and
                         typesetting industry. Lorem Ipsum has been the industry's standard.</p>
@@ -198,8 +198,8 @@ export default {
                             </span>
                         </div>
                     </form>
-                    <h3 class="fw_6 fs_22 lh_32 fc_white text-capitalize mb-4">We Accept</h3>
-                    <img src="./assets/images/ssl-img.png" alt="thumb" class="w-100">
+                    <!-- <h3 class="fw_6 fs_22 lh_32 fc_white text-capitalize mb-4">We Accept</h3>
+                    <img src="./assets/images/ssl-img.png" alt="thumb" class="w-100"> -->
                 </div>
             </div>
             <div class="row g-4 spt">
@@ -208,10 +208,10 @@ export default {
                 </div>
                 <div class="col-12 col-sm-6">
                     <div class="d-flex justify-content-center justify-content-sm-end align-items-center gap-4">
-                        <a href="terms-conditions.html" class="d-inline-block fs_15 lh_22 fc_white">Terms &
+                        <a href="#l" class="d-inline-block fs_15 lh_22 fc_white">Terms &
                             Conditions</a>
-                        <a href="privacy-policy.html" class="d-inline-block fs_15 lh_22 fc_white">Privacy Policy</a>
-                        <a href="return-policy.html" class="d-inline-block fs_15 lh_22 fc_white">Return Policy</a>
+                        <a href="#" class="d-inline-block fs_15 lh_22 fc_white">Privacy Policy</a>
+                        <a href="#" class="d-inline-block fs_15 lh_22 fc_white">Return Policy</a>
                     </div>
                 </div>
             </div>

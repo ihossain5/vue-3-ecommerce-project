@@ -106,7 +106,7 @@ export default {
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a class="d-flex align-items-center gap-3 svg_20" href="my-profile-info.html">
+                                            <a class="d-flex align-items-center gap-3 svg_20" href="#">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     viewBox="0 0 20 20" fill="none">
                                                     <path
@@ -122,7 +122,7 @@ export default {
                                             </a>
                                         </li>
                                         <li>
-                                            <a class="d-flex align-items-center gap-3 svg_20" href="my-wishlist.html">
+                                            <a class="d-flex align-items-center gap-3 svg_20" href="#">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     viewBox="0 0 20 20" fill="none">
                                                     <path
@@ -134,7 +134,7 @@ export default {
                                             </a>
                                         </li>
                                         <li>
-                                            <a class=" d-flex align-items-center gap-3 svg_20" href="my-orders.html">
+                                            <a class=" d-flex align-items-center gap-3 svg_20" href="#">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                     viewBox="0 0 20 20" fill="none">
                                                     <path d="M17.5 6.66406V17.4974H2.5V6.66406" stroke="#666666"
@@ -167,7 +167,7 @@ export default {
                                     </ul>
                                 </div>
                             </div>
-                            <a href="compare.html"
+                            <a href="#"
                                 class="badge_btn position-relative bg_red rounded-circle d-flex justify-content-center align-items-center fs_20">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none">
@@ -184,7 +184,7 @@ export default {
                                 <span
                                     class="position-absolute rounded-circle d-flex justify-content-center align-items-center bg_white bxy_gl  fs_14 lh_20 fc_black">0</span>
                             </a>
-                            <a href="my-wishlist.html"
+                            <a href="#"
                                 class="badge_btn position-relative bg_red rounded-circle d-flex justify-content-center align-items-center fs_20">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                     fill="none">
@@ -238,8 +238,8 @@ export default {
                             </svg>
                         </button>
                         <nav>
-                            <a href="motorbikes.html" class="fw_5 fs_14 lh_20 fc_white text-capitalize">Motorbikes</a>
-                            <a href="products.html" class="fw_5 fs_14 lh_20 fc_white text-capitalize">Accessories</a>
+                            <a href="#" class="fw_5 fs_14 lh_20 fc_white text-capitalize">Motorbikes</a>
+                            <a href="#" class="fw_5 fs_14 lh_20 fc_white text-capitalize">Accessories</a>
                         </nav>
                     </div>
                 </div>
@@ -248,8 +248,7 @@ export default {
                         <nav>
                             <router-link class="fw_5 fs_14 lh_20 fc_white text-capitalize" v-for="category in filteredData" :key="category.id"  :to="category.id === 8 ? '/all-accessories' : '/' " >{{ category.name }}</router-link>
                         </nav>
-                        <a href="order-tracking.html" class="fw_5 fs_14 lh_20 fc_white text-capitalize">Order
-                            Tracking</a>
+        
                     </div>
                 </div>
             </div>
@@ -265,7 +264,7 @@ export default {
         </div>
         <div class="offcanvas-body">
             <div class="logo_wrapper">
-                <img src="./assets/images/sidenav-logo.svg" alt="logo">
+                <!-- <img src="./assets/images/sidenav-logo.svg" alt="logo"> -->
             </div>
             <nav>
                 <a href="/" class="active"  v-for="category in filteredData" :key="category.id">{{ category.name }}</a>
