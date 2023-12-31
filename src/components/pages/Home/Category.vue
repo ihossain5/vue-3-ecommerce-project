@@ -27,7 +27,7 @@ export default {
         <div class="container-fluid container-xxxl">
             <div class="sc_title_wrapper">
                 <h1 class="sc_title">Our Categories</h1>
-                <a href="categories.html" class="br_5 bg_red btnp_1228 tbg_3 hover">
+                <a href="#" class="br_5 bg_red btnp_1228 tbg_3 hover">
                     <span class="fw_5 fs_14 lh_20 fc_white text-uppercase">view all</span>
                 </a>
             </div>

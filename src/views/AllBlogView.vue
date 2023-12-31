@@ -82,7 +82,7 @@ export default {
                     </div>
                     <h2 class="pb-3 fw_6 fs_25 lh_36 le_03">{{blog.title}}</h2>
                     <p class="mb-3 mb-md-4 fs_17 lh_28">{{ blog.description.replace(/<\/?[^>]+(>|$)/g, "") }}</p>
-                    <a href=""
+                    <a href="#"
                         class="fw_5 fs_15 lh_22 fc_red text-capitalize text-decoration-underline">read more</a>
                 </div>
             </div>
