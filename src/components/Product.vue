@@ -164,6 +164,7 @@ export default {
           <h5
             class="d-flex justify-content-center align-items-center gap-2 gap-md-4 pt-0 pt-md-3 fs_18 lh_22 fc_black"
           >
+          <span class="fc_gl text-decoration-line-through"  v-if="product.discount !== null">BDT {{ product.regular_price }}</span>
             <span>BDT {{ product.discounted_price }}</span>
           </h5>
         </div>

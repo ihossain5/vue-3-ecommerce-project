@@ -1,5 +1,4 @@
 <script setup>
-import AdvanceSearch from '../components/AdvanceSearch.vue'
 import TodayDeal from '../components/pages/Home/TodayDeal.vue'
 import Category from '../components/pages/Home/Category.vue'
 import Brand from '../components/pages/Home/Brand.vue'
@@ -12,8 +11,6 @@ import Slider from '../components/pages/Home/Slider.vue'
 </script>
 
 <template>
-   
-  <AdvanceSearch></AdvanceSearch>
 
   <!-- categories with slider -->
   <Slider></Slider>

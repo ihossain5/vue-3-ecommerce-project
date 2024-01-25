@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-  <section class="categories_sc">
+  <section class="categories_sc mt-5">
     <div class="container-fluid container-xxxl">
       <div class="row">
         <div class="col-md-3 col-lg-2 d-none d-md-block">

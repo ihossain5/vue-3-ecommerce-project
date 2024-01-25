@@ -40,11 +40,8 @@ export default {
         <div class="container-fluid container-xxxl">
             <div class="row">
 
-                <div class="col-12 col-lg-3 col-xxl-2 offcanvas offcanvas-start" id="offcanvasCategory">
-                    <ProductFilter></ProductFilter>
-                </div>
 
-                <div class="col-12 col-lg-9 col-xxl-10">
+                <div class="col-12 col-lg-12 col-xxl-12">
 
                     <div class="prd_page_header pb-3">
                         <div class="row align-items-end gy-4 gy-md-0">
@@ -80,7 +77,7 @@ export default {
 
                     <!-- products -->
                     <div class="pt-4 products_wrapper spb">
-                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-2 g-md-4">
+                        <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 g-2 g-md-4">
                             <Product :baseUlr="Base_Url" :selectedSortOption="selectedSortOption" ></Product>
                         </div>
                     </div>

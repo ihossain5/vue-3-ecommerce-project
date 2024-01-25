@@ -37,7 +37,7 @@ export default {
 </script>
 
 <template>
-  <section class="accessories_sc spy">
+  <section class="accessories_sc spy" v-if="accessories.lenght > 0">
     <div class="container-fluid container-xxxl">
       <div class="sc_title_wrapper">
         <h1 class="sc_title">Accessories</h1>
