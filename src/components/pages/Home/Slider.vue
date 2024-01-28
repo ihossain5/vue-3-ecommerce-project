@@ -23,7 +23,7 @@ export default {
             console.error(error);
             loading.value = false; 
           });
-      }); // 2-second delay
+      }); 
     });
 
     return {

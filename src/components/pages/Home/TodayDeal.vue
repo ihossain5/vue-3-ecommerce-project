@@ -10,7 +10,7 @@ export default {
   },
   async created() {
     await fetch(this.BASE_API_URL+"/hot-deals", {
-        method: 'GET' //optional
+        method: 'GET'
     })
       .then(async (response) => {
         const data = await response.json()
@@ -28,9 +28,9 @@ export default {
         <div class="container-fluid container-xxxl">
             <div class="sc_title_wrapper">
                 <h1 class="sc_title">Today's Deal</h1>
-                <a href="#" class="br_5 bg_red btnp_1228 tbg_3 hover">
+                <!-- <a href="#" class="br_5 bg_red btnp_1228 tbg_3 hover">
                     <span class="fw_5 fs_14 lh_20 fc_white text-uppercase">view all</span>
-                </a>
+                </a> -->
             </div>
             <div class="row row-cols-md-2 g-3 g-md-4">
                 <div class="row_item" v-for="deal in deals" :key="deal.id">

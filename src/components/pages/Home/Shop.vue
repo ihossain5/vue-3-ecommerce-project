@@ -27,9 +27,9 @@ export default {
         <div class="container-fluid container-xxxl">
             <div class="sc_title_wrapper">
                 <h1 class="sc_title">our shop</h1>
-                <a href="#" class="br_5 bg_red btnp_1228 tbg_3 hover">
+                <!-- <a href="#" class="br_5 bg_red btnp_1228 tbg_3 hover">
                     <span class="fw_5 fs_14 lh_20 fc_white text-uppercase">view all</span>
-                </a>
+                </a> -->
             </div>
             <div class="row row-cols-2 row-cols-lg-3 g-2 g-sm-3 g-xl-5">
                 <div class="row_item" v-for="shop in shops" :key="shop.id">

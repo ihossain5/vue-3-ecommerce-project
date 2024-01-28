@@ -67,6 +67,7 @@ export default {
       scrollObserver.value = document.querySelector("#scrollObserver");
       window.addEventListener("scroll", handleScroll);
     });
+
     onUnmounted(() => {
       window.removeEventListener("scroll", handleScroll);
     });
@@ -89,6 +90,10 @@ export default {
 
       return sorted;
     });
+    
+    const sanitizeProductName = (name) => {
+      return encodeURIComponent(name).replace(/%20/g, '-');
+    };
 
     const cart = useCartStore();
 
@@ -119,6 +124,7 @@ export default {
       products,
       sortedProducts,
       addToCart,
+      sanitizeProductName
     };
   },
   components: { LoadingPlaceholder },
@@ -130,7 +136,7 @@ export default {
     <div
       class="position-relative overflow-hidden prd_card br_5 bxy_gl bs_15 tbs_tb_3 hover"
     >
-      <a href="#" class="d-block">
+      <router-link  :to="{ path: `/products/${sanitizeProductName(product.name)}/details`, query: { id: product.id } }" class="d-block">
         <div
           class="position-relative d-flex justify-content-center align-items-center img_box"
         >
@@ -168,7 +174,7 @@ export default {
             <span>BDT {{ product.discounted_price }}</span>
           </h5>
         </div>
-      </a>
+      </router-link>
       <div class="position-absolute d-flex group_buttons br_5">
         <button type="button" @click="addToCart(product)">
           <svg
