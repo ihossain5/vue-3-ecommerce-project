@@ -62,12 +62,9 @@ const router = createRouter({
             component: ProductView
         },
         {
-            path: '/products/:name/details',
+            path: '/products/:id/details',
             name: 'productDetails',
             component: ProductDetailsView,
-            props: route => ({
-                id: route.query.id,
-            }),
         },
         {
             path: '/all-accessories',

@@ -136,7 +136,7 @@ export default {
     <div
       class="position-relative overflow-hidden prd_card br_5 bxy_gl bs_15 tbs_tb_3 hover"
     >
-      <router-link  :to="{ path: `/products/${sanitizeProductName(product.name)}/details`, query: { id: product.id } }" class="d-block">
+      <router-link  :to="{ path: `/products/${product.id}/details`}" class="d-block">
         <div
           class="position-relative d-flex justify-content-center align-items-center img_box"
         >

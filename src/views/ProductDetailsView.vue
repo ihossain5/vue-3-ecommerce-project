@@ -3,21 +3,34 @@ import { ref, watchEffect, computed } from 'vue'
 import { useRoute } from 'vue-router';
 import axios from 'axios';
 import { BASE_API_URL } from '../config';
+import { useCartStore } from '../store/cart';
+import { useToast } from 'vue-toastification';
 
 export default {
   setup() {
     const product = ref({})
     const route = useRoute();
-
+    const quantity = ref(1);
     
     const plainTextDescription = computed(() => {
       const doc = new DOMParser().parseFromString(product.value.description, 'text/html');
       return doc.body.textContent || '';
     });
 
+    const increaseQuantity = (() => {
+        quantity.value++
+    })
+
+    const decreaseQuantity = (() => {
+        if(quantity.value == 1){
+            return ;
+        }
+        quantity.value--
+    })
+
 
     watchEffect(() => {
-      const productId = route.query.id;
+      const productId = route.params.id;
 
       if (productId) {
         fetchProductDetails(productId);
@@ -39,11 +52,36 @@ export default {
         console.error('Error fetching product details:', error);
       }
     }
+
+    const cart = useCartStore();
+
+    const addToCart = (product) => {
+      const cartItem = {
+        product_id: product.id,
+        shop_id: product.shop_id,
+        name: product.name,
+        image: product.images[0],
+        price: product.discounted_price,
+        quantity: quantity.value,
+        total_price: product.discounted_price,
+      };
+
+      const shopId = product.shop_id;
+
+      cart.addToCart(shopId, cartItem);
+
+      const toast = useToast();
+      toast.success("Items has added into your cart");
+    };
     
 
     return {
         product,
-        plainTextDescription
+        plainTextDescription,
+        quantity,
+        increaseQuantity,
+        decreaseQuantity,
+        addToCart
     }
   },
 
@@ -209,7 +247,7 @@ export default {
                         <div class="py-4">
                             <span class="d-block pb-2 fs_17 lh_25">Quantity:</span>
                             <div class="d-inline-flex br_5 bxy_gl quantity">
-                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between align-items-center" @click="decreaseQuantity">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"
                                         fill="none">
                                         <path
@@ -218,9 +256,9 @@ export default {
                                     </svg>
                                 </div>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span class="fw_5 fs_17">01</span>
+                                    <span class="fw_5 fs_17">{{ quantity }}</span>
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between align-items-center" @click="increaseQuantity">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"
                                         fill="none">
                                         <path
@@ -232,7 +270,7 @@ export default {
                         </div>
                         <div class="d-flex flex-wrap align-items-center gap-3 gap-md-5 pt-2 pb-4 bb_gl atc_wish_comp">
                             <div>
-                                <button type="button" class="d-inline-block br_5 bg_red btnp_1530 tbg_3 hover"
+                                <button type="button" class="d-inline-block br_5 bg_red btnp_1530 tbg_3 hover" @click="addToCart(product)"
                                     id="btnAcToast">
                                     <span class="fw_5 fs_14 lh_20 fc_white text-uppercase">Add to Cart</span>
                                 </button>
@@ -276,220 +314,7 @@ export default {
                             </tbody>
                         </table>
                     </div>
-                    <!-- <div class="tab-pane fade" id="pd-review" role="tabpanel" aria-labelledby="pd-review-tab">
-                        <div class="prd_review">
-                            <div class="preview">
-                                <div
-                                    class="d-flex flex-wrap justify-content-center justify-content-lg-between align-items-end gap-4 gap-md-5">
-                                    <div class="flex_item">
-                                        <div
-                                            class="d-flex flex-wrap justify-content-center justify-content-md-start align-items-center gap-4">
-                                            <div class="flex_item">
-                                                <h1>{{ product.rating }}<span>/5</span></h1>
-                                                <div
-                                                    class="d-flex flex-md-column align-items-center align-items-md-start gap-2">
-                                                    <div class="rate_wrapper mt-0 mt-md-4 mb-0 mb-md-3">
-                                                        <div class="ratings">
-                                                            <i data-star="{{ product.rating }}"></i>
-                                                        </div>
-                                                    </div>
-                                                    <span class="fs_17 lh_28 fc_gd">{{ product.total_reviews }} Rating</span>
-                                                </div>
-                                            </div>
-                                            <div class="flex_item">
-                                                <div class="d-flex align-items-center gap-3 gap-md-5">
-                                                    <div class="rate_wrapper">
-                                                        <div class="ratings">
-                                                            <i data-star="5"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center gap-2 gap-md-3">
-                                                        <div class="color_bar">
-                                                            <div class="color_bar_inner" style="width: 80%"></div>
-                                                        </div>
-                                                        <span class="fs_15 lh_22">8 Rating</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-3 gap-md-5">
-                                                    <div class="rate_wrapper">
-                                                        <div class="ratings">
-                                                            <i data-star="4"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center gap-2 gap-md-3">
-                                                        <div class="color_bar">
-                                                            <div class="color_bar_inner" style="width: 60%"></div>
-                                                        </div>
-                                                        <span class="fs_15 lh_22">6 Rating</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-3 gap-md-5">
-                                                    <div class="rate_wrapper">
-                                                        <div class="ratings">
-                                                            <i data-star="3"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center gap-2 gap-md-3">
-                                                        <div class="color_bar">
-                                                            <div class="color_bar_inner" style="width: 40%"></div>
-                                                        </div>
-                                                        <span class="fs_15 lh_22">4 Rating</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-3 gap-md-5">
-                                                    <div class="rate_wrapper">
-                                                        <div class="ratings">
-                                                            <i data-star="2"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center gap-2 gap-md-3">
-                                                        <div class="color_bar">
-                                                            <div class="color_bar_inner" style="width: 20%"></div>
-                                                        </div>
-                                                        <span class="fs_15 lh_22">2 Rating</span>
-                                                    </div>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-3 gap-md-5">
-                                                    <div class="rate_wrapper">
-                                                        <div class="ratings">
-                                                            <i data-star="1"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex align-items-center gap-2 gap-md-3">
-                                                        <div class="color_bar">
-                                                            <div class="color_bar_inner" style="width: 0%"></div>
-                                                        </div>
-                                                        <span class="fs_15 lh_22">0 Rating</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="flex_item">
-                                        <button type="button"
-                                            class="d-inline-block br_5 bxy_red btnp_1530 tbg_3 not_red_fill"
-                                            data-bs-toggle="modal" data-bs-target="#prdReview">
-                                            <span class="fw_5 fs_14 lh_20 fc_red text-uppercase tfc_3">WRITE A
-                                                REVIEW</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="view_review">
-                                <div
-                                    class="view_review_head d-flex flex-wrap justify-content-center justify-content-md-between align-items-center gap-3 bt_gl">
-                                    <h5 class="fw_4 fs_20 lh_28">Product Reviews</h5>
-                                    <div
-                                        class="d-flex justify-content-between justify-content-md-end align-items-center gap-3 gap-md-4">
-                                        <div class="d-flex align-items-center gap-2 gap-md-3">
-                                            <span class="fs_16 lh_23 text-capitalize">Sort By:</span>
-                                            <select class="short_by form-select fs_14 lh_20 fc_gd">
-                                                <option selected>High to Low</option>
-                                                <option value="1">Low to High</option>
-                                            </select>
-                                        </div>
-                                        <div class="d-flex align-items-center gap-2 gap-md-3">
-                                            <span class="fs_16 lh_23 text-capitalize">Filter:</span>
-                                            <select class="short_by form-select fs_14 lh_20 fc_gd">
-                                                <option selected>All star</option>
-                                                <option value="1">One start</option>
-                                                <option value="2">Two star</option>
-                                                <option value="3">Three star</option>
-                                                <option value="3">Four star</option>
-                                                <option value="3">Five star</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="view_review_item spy_4 by_gl">
-                                    <div class="d-flex flex-column flex-md-row gap-3 gap-md-0">
-                                        <div
-                                            class="d-flex flex-md-column justify-content-between justify-content-md-start align-items-md-center gap-2">
-                                            <div class="d-flex flex-md-column align-items-md-center gap-2">
-                                                <img src="./assets/images/bcv-user.png" alt="user">
-                                                <div class="text-md-center">
-                                                    <span class="fw_5 fs_20 lh_29">Rocky Khan</span>
-                                                    <div class="rate-wrapper mt-2 mt-md-3">
-                                                        <div class="rating rating_16"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="fs_14 lh_28 fc_gd">08 May 2023</span>
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-between">
-                                            <p class="fs_17 lh_28 fc_g3 le_03">Lorem ipsum dolor sit amet consectetur.
-                                                Malesuada turpis eget venenatis et enim massa convallis cursus blandit.
-                                                Porta aliquam orci pulvinar vitae sed libero sem gravida adipiscing.
-                                                Varius diam amet nunc fringilla. Commodo ipsum interdum in lorem.</p>
-                                            <div class="mt-4 d-flex align-items-center gap-5">
-                                                <div class="d-flex align-items-center gap-3 svg_24">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none">
-                                                        <path
-                                                            d="M23 10C23 9.46957 22.7893 8.96086 22.4142 8.58579C22.0391 8.21071 21.5304 8 21 8H14.68L15.64 3.43C15.66 3.33 15.67 3.22 15.67 3.11C15.67 2.7 15.5 2.32 15.23 2.05L14.17 1L7.59 7.58C7.22 7.95 7 8.45 7 9V19C7 19.5304 7.21071 20.0391 7.58579 20.4142C7.96086 20.7893 8.46957 21 9 21H18C18.83 21 19.54 20.5 19.84 19.78L22.86 12.73C22.95 12.5 23 12.26 23 12V10ZM1 21H5V9H1V21Z"
-                                                            fill="#333333" />
-                                                    </svg>
-                                                    <span class="fs_15 lh_28">5</span>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-3 svg_24">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none">
-                                                        <path
-                                                            d="M1 14C1 14.5304 1.21071 15.0391 1.58579 15.4142C1.96086 15.7893 2.46957 16 3 16H9.32L8.36 20.57C8.34 20.67 8.33 20.78 8.33 20.89C8.33 21.3 8.5 21.68 8.77 21.95L9.83 23L16.41 16.42C16.78 16.05 17 15.55 17 15V5C17 4.46957 16.7893 3.96086 16.4142 3.58579C16.0391 3.21071 15.5304 3 15 3H6C5.17 3 4.46 3.5 4.16 4.22L1.14 11.27C1.05 11.5 1 11.74 1 12V14ZM23 3H19V15H23V3Z"
-                                                            fill="#999999" />
-                                                    </svg>
-                                                    <span class="fs_15 lh_28 fc_g9">0</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="view_review_item spy_4 by_gl">
-                                    <div class="d-flex flex-column flex-md-row gap-3 gap-md-0">
-                                        <div
-                                            class="d-flex flex-md-column justify-content-between justify-content-md-start align-items-md-center gap-2">
-                                            <div class="d-flex flex-md-column align-items-md-center gap-2">
-                                                <img src="./assets/images/bcv-user.png" alt="user">
-                                                <div class="text-md-center">
-                                                    <span class="fw_5 fs_20 lh_29">Monjur Alam</span>
-                                                    <div class="rate-wrapper mt-2 mt-md-3">
-                                                        <div class="rating rating_16"></div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="fs_14 lh_28 fc_gd">08 May 2023</span>
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-between">
-                                            <p class="fs_17 lh_28 fc_g3 le_03">Lorem ipsum dolor sit amet consectetur.
-                                                Malesuada turpis eget venenatis et enim massa convallis cursus blandit.
-                                                Porta aliquam orci pulvinar vitae sed libero sem gravida adipiscing.
-                                                Varius diam amet nunc fringilla. Commodo ipsum interdum in lorem.</p>
-                                            <div class="mt-4 d-flex align-items-center gap-5">
-                                                <div class="d-flex align-items-center gap-3 svg_24">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none">
-                                                        <path
-                                                            d="M23 10C23 9.46957 22.7893 8.96086 22.4142 8.58579C22.0391 8.21071 21.5304 8 21 8H14.68L15.64 3.43C15.66 3.33 15.67 3.22 15.67 3.11C15.67 2.7 15.5 2.32 15.23 2.05L14.17 1L7.59 7.58C7.22 7.95 7 8.45 7 9V19C7 19.5304 7.21071 20.0391 7.58579 20.4142C7.96086 20.7893 8.46957 21 9 21H18C18.83 21 19.54 20.5 19.84 19.78L22.86 12.73C22.95 12.5 23 12.26 23 12V10ZM1 21H5V9H1V21Z"
-                                                            fill="#333333" />
-                                                    </svg>
-                                                    <span class="fs_15 lh_28">5</span>
-                                                </div>
-                                                <div class="d-flex align-items-center gap-3 svg_24">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                                        viewBox="0 0 24 24" fill="none">
-                                                        <path
-                                                            d="M1 14C1 14.5304 1.21071 15.0391 1.58579 15.4142C1.96086 15.7893 2.46957 16 3 16H9.32L8.36 20.57C8.34 20.67 8.33 20.78 8.33 20.89C8.33 21.3 8.5 21.68 8.77 21.95L9.83 23L16.41 16.42C16.78 16.05 17 15.55 17 15V5C17 4.46957 16.7893 3.96086 16.4142 3.58579C16.0391 3.21071 15.5304 3 15 3H6C5.17 3 4.46 3.5 4.16 4.22L1.14 11.27C1.05 11.5 1 11.74 1 12V14ZM23 3H19V15H23V3Z"
-                                                            fill="#999999" />
-                                                    </svg>
-                                                    <span class="fs_15 lh_28 fc_g9">0</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+                  
                 </div>
             </div>
         </div>
